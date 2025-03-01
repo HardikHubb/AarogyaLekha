@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >Homepage</title>
+    <link rel="stylesheet" href="homepage-design.css">
+</head>
+<body>
+    <div class="component">
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div class="sidebar-header">
+                <span id="sidebar-toggle" class="menu-icon" onclick="toggleSidebar()">☰</span>
+                
+            </div>
+            <a href="Homepage.html" id="logo">
+          <img src="blacknobackground-removebg-preview.png" alt="App Logo" class="logo">
+            </a>
+          <span class="app-name" data-translate="al">Aarogya Lekha</span>
+          
+        </div>
+        <div class="navbar-right">
+      
+          
+          <div class="profile-container">
+            <div class="hospital-name" id="hospital-name"></div>
+            <img src="userprofile.png" alt="Profile" class="profile-logo" id="profile-logo">
+            <div class="dropdown1" id="profile-dropdown">
+                <div class="dropdown-data" id="dropdown-data">
+                    <a href="#" id="profile-link">Profile</a>
+                    <a href="#" id="logout-link">Logout</a>
+                </div>
+            </div>
+        </div>
+          </div> 
+        </div>
+      </nav>
+       <!-- Sidebar -->
+       <div class="sidebar" id="sidebar">
+        <ul class="nav-links">
+            <li onclick="showPage('home')">
+                <img src="homepage.png" alt="Home Icon"> <span>Home</span>
+            </li>
+            <li onclick="showPage('profile')">
+                <img src="user.png" alt="Profile Icon"> <span>Profile</span>
+            </li>
+            <li onclick="showPage('patient-id')">
+                <img src="identification-card.png" alt="Patient ID Icon"> <span>Patient ID</span>
+            </li>
+            <li onclick="showPage('registration')">
+                <img src="registration.png" alt="Registration Icon"> <span>Patient Registration</span>
+            </li>
+            <li onclick="showPage('faq')">
+                <img src="faq.png" alt="FAQ Icon"> <span>FAQ</span>
+            </li>
+            <li onclick="redirectToPage('contact-us.html')">
+                <img src="contact-us.png" alt="Contact Icon"> <span>Contact Us</span>
+            </li>
+            <li onclick="redirectToPage('about-us.html')">
+                <img src="support.png" alt="About Icon"> <span>About Us</span>
+            </li>
+            <!-- Theme Toggle Button added to the sidebar -->
+        <li class="dark-mode-toggle">
+            <img src="dark-mode.png" alt="darkmode-icon">
+          <span>Dark Mode</span>
+          <label class="switch">
+              <input type="checkbox" id="darkModeToggle">
+              <span class="slider"></span>
+          </label>
+      </li>
+      <li class="languageselector">
+        <div class="language-dropdown">
+          <button class="language-btn" id="language-btn">
+              Choose Language
+          </button>
+          <div class="language-options" id="language-options">
+            <a href="#" data-lang="en">🇬🇧 English</a>
+            <a href="#" data-lang="hi">🇮🇳 हिंदी</a>
+            <a href="#" data-lang="mr">🇮🇳 मराठी</a>
+            
+          </div>
+        </div>
+      </li>
+        </ul>
+    </div>
+   
+    <div id="home" class="page active">
+    <!-- Main Content -->
+    <div id="main-content">
+        
+        <!-- Scrolling Cards Section (Upper Half) -->
+        <div class="scrolling-container">
+            <div class="scrolling-cards">
+                <div class="card"><img src="1a0cf664-8c02-47ae-97d0-45b1f1ab5056.jpeg" alt="Card 1"></div>
+                <div class="card"><img src="image2.jpg" alt="Card 2"></div>
+                <div class="card"><img src="image3.jpg" alt="Card 3"></div>
+                <div class="card"><img src="image4.jpg" alt="Card 4"></div>
+                <div class="card"><img src="1a0cf664-8c02-47ae-97d0-45b1f1ab5056.jpeg" alt="Card 1"></div>
+                <div class="card"><img src="image2.jpg" alt="Card 2"></div>
+                <div class="card"><img src="image3.jpg" alt="Card 3"></div>
+                <div class="card"><img src="image4.jpg" alt="Card 4"></div>
+            </div>
+        </div>
+
+        <!-- Lower Container (Bottom Half) -->
+        <div class="lower-container">
+            <div class="container1">
+                <h1>HI</h1>
+            </div>
+            <div class="container2">
+                <h1>Important Links:</h1>
+                <ul>
+                <li><p>Ayushman Bharat Yojana: <a href="https://abdm.gov.in/">abdm.gov.in</a></p></li>
+                <li><p>BMC Official Website: <a href="https://www.mcgm.gov.in/">mcgm.gov.in</a></p></li>
+                <li><p>Ayushman Bharat Yojana: <a href="https://abdm.gov.in/">abdm.gov.in</a></p></li>
+                <li><p>Ayushman Bharat Yojana: <a href="https://abdm.gov.in/">abdm.gov.in</a></p></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+        </div>
+        <div id="profile" class="page"> 
+            <div class="outside-container">
+                <h2>Profile</h2>
+                <div class="profile-grid">
+                    <div class="profile-info">
+                        <label>Hospital Name:</label>
+                        <input type="text" id="hospitalName" value="ABC Hospital" readonly>
+                    </div>
+                    <div class="profile-info">
+                        <label>Hospital ID:</label>
+                        <input type="text" id="hospitalID" value="1234567890" readonly>
+                    </div>
+                    <div class="profile-info">
+                        <label>Email:</label>
+                        <input type="email" id="email" value="example@hospital.com" readonly>
+                    </div>
+                    <div class="profile-info">
+                        <label>State:</label>
+                        <input type="text" id="state" value="Maharashtra" readonly>
+                    </div>
+                    <div class="profile-info">
+                        <label>City:</label>
+                        <input type="text" id="city" value="Mumbai" readonly>
+                    </div>
+                    <div class="profile-info">
+                        <label>Address:</label>
+                        <input type="text" id="address" value="123 Street, Mumbai, India" readonly>
+                    </div>
+                    <div class="profile-info">
+                        <label>User ID:</label>
+                        <input type="text" id="userID" value="9876543210" readonly>
+                    </div>
+                </div>
+    
+                <button class="edit-btn" onclick="enableEditing()">Edit</button>
+                <button class="save-btn" onclick="saveChanges()" style="display: none;">Save</button>
+            </div>
+        </div>
+
+          
+        </div>
+        <div id="patient-id" class="page"> 
+            <h1>Patient ID Section</h1> 
+        </div>
+        <div id="registration" class="page"> <h1>Patient Registration Page</h1> </div>
+        <div id="faq" class="page"> <h1>Frequently Asked Questions</h1> </div>
+    </div>
+
+       
+      </nav>
+
+      <script src="homepage-script.js"></script>
+
+
+    </body>
+    </html>

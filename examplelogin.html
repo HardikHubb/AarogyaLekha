@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >Login Page</title>
+    <link rel="stylesheet" href="examplelogindesign.css">
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="component">
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="examplelogin.html" id="logo">
+          <img src="blacknobackground-removebg-preview.png" alt="App Logo" class="logo">
+            </a>
+          <span class="app-name" data-translate="al">Aarogya Lekha</span>
+          
+        </div>
+        <div class="navbar-right">
+          
+            <a href="contact-us.html" class="nav-link" data-translate="contact">Contact Us</a>
+            <a href="about-us.html" class="nav-link1" data-translate="about">About Us</a>
+            <a href="help-page.html" class="nav-link2" data-translate="help">Help</a>
+  
+          <div class="dropdown">
+            <button class="dropdown-btn">
+              🇬🇧 English
+            </button>
+            <div class="dropdown-content">
+              <a href="#" data-lang="en">🇬🇧 English</a>
+              <a href="#" data-lang="hi">🇮🇳 हिंदी</a>
+              <a href="#" data-lang="mr">🇮🇳 मराठी</a>
+              
+            </div>
+          </div>
+          <div class="theme-toggle-wrapper">
+            <button id="themeToggle" class="theme-toggle">
+              <span class="sun">☀️</span>
+              <span class="moon">🌙</span>
+            </button>
+          </div>
+        </div>
+       
+      </nav>
+
+    <div class="login-container">
+        <div class="menu">
+            <div id="sign-in-tab" class="tab active" data-translate="SIGNUPP">SIGN UP</div>
+            <div id="login-tab" class="tab" data-translate="LOGINN">LOG IN</div>
+        </div>
+        <div id="form-container" class="form-container">
+            <div id="sign-in-form" class="form active-form">
+                <h2 data-translate="signup">SIGN UP</h2>
+                <form  id="signupform"     action="/signup" method="POST">
+<div id="inputedit" class="inputedit">
+                <label for="hospital-id" data-translate="hid">Hospital ID</label>
+                <input type="text" id="hospital-id" name="hospital-id" placeholder="Enter your Hospital ID" pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
+
+                <label for="hospital-name" data-translate="hname">Hospital Name</label>
+                <input type="text" id="hospital-name" placeholder="Enter your Hospital Name" rows="2" name="hospital-name" required>
+
+                <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="states" data-translate="statess">Select Your State:</label>
+                <select id="state" name="state" onchange="updateCityDropdown()">
+                    <option value="" disabled selected>Select your state</option>
+                    <option value="andhra_pradesh">Andhra Pradesh</option>
+                    <option value="arunachal_pradesh">Arunachal Pradesh</option>
+                    <option value="assam">Assam</option>
+                    <option value="bihar">Bihar</option>
+                    <option value="chhattisgarh">Chhattisgarh</option>
+                    <option value="goa">Goa</option>
+                    <option value="gujarat">Gujarat</option>
+                    <option value="haryana">Haryana</option>
+                    <option value="himachal_pradesh">Himachal Pradesh</option>
+                    <option value="jharkhand">Jharkhand</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="kerala">Kerala</option>
+                    <option value="madhya_pradesh">Madhya Pradesh</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="manipur">Manipur</option>
+                    <option value="meghalaya">Meghalaya</option>
+                    <option value="mizoram">Mizoram</option>
+                    <option value="nagaland">Nagaland</option>
+                    <option value="odisha">Odisha</option>
+                    <option value="punjab">Punjab</option>
+                    <option value="rajasthan">Rajasthan</option>
+                    <option value="sikkim">Sikkim</option>
+                    <option value="tamil_nadu">Tamil Nadu</option>
+                    <option value="telangana">Telangana</option>
+                    <option value="tripura">Tripura</option>
+                    <option value="uttar_pradesh">Uttar Pradesh</option>
+                    <option value="uttarakhand">Uttarakhand</option>
+                    <option value="west_bengal">West Bengal</option>
+                    <option value="andaman_nicobar">Andaman and Nicobar Islands</option>
+                    <option value="chandigarh">Chandigarh</option>
+                    <option value="dadra_nagar_haveli_daman_diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="jammu_kashmir">Jammu and Kashmir</option>
+                    <option value="ladakh">Ladakh</option>
+                    <option value="lakshadweep">Lakshadweep</option>
+                    <option value="puducherry">Puducherry</option>
+                </select>
+
+
+                <label for="states" data-translate="citi">Select Your City:</label>
+                <select id="city" name="city" disabled>
+                    <option value="" >Select your city</option>
+                </select>
+
+
+                <label for="address" data-translate="add">Address</label>
+                <textarea id="address" name="address" rows="4"  placeholder="Enter your address"></textarea>
+
+                <label for="User ID" data-translate="usern">User ID</label>
+                <input type="text" id="user-id" name="user-id" placeholder="Enter User ID" pattern="\d{10}" title="Keep it strong" maxlength="10" required onkeypress="return isNumberKey(event)" >
+</div>
+<label for="password" data-translate="pass">Password</label>
+<div class="password-field">
+    <input type="password" id="password" name="password" 
+           placeholder="Enter your password" 
+           pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[A-Za-z\d@$!%*?&]{8,}"
+           title="Password must be at least 8 characters, with one uppercase letter, one special character, and one number." 
+           required>
+    <div class="toggle-icon" data-target="password"></div>
+</div>
+
+<label for="confirm-password" data-translate="confpass">Confirm Password</label>
+<div class="password-field">
+    <input type="password" id="confirm-password" name="confirm-password" 
+           placeholder="Confirm your password" 
+           pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[A-Za-z\d@$!%*?&]{8,}" 
+           title="Password must be at least 8 characters, with one uppercase letter, one special character, and one number." 
+           required>
+    <div class="toggle-icon" data-target="confirm-password"></div>
+</div>
+
+<button type="submit"  data-translate="sub">Submit</button>
+</div>
+</form>
+
+<div id="login-form" class="form">
+    
+<h2 data-translate="login">LOG IN</h2>
+
+<form action="/login" method="POST">
+    <label for="login-username" data-translate="usern">User ID</label>
+    <input type="text" id="user-id" name="user-id" placeholder="Enter User ID" pattern="\d{10}" title="Keep it strong" maxlength="10" required onkeypress="return isNumberKey(event)" >
+
+    <label for="login-password" data-translate="pass">Password</label>
+    <div class="password-field">
+      <input type="password" id="login-password" name="login-password" 
+      placeholder="Enter your password" 
+      pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[A-Za-z\d@$!%*?&]{8,}" 
+      title="Password must be at least 8 characters, with one uppercase letter, one special character, and one number." 
+      required>
+        <div class="toggle-icon" data-target="login-password"></div>
+    </div>
+</form>
+            
+            <button type="submit" data-translate="LOGINN">Login</button>
+            <a href="forgot-password.html" onclick="openForgotPassword()">Forgot Password?</a>
+        </form>
+        </div>
+        </div>
+    </div>
+        
+    </div>
+    <script src="exampleloginscript.js"></script>
+    <script>
+        function isNumberKey(evt) {
+            var charCode = evt.which ? evt.which : evt.keyCode;
+            if (charCode < 48 || charCode > 57) {
+                return false;
+            }
+            return true;
+        }
+
+       
+    </script>
+</body>
+</html>

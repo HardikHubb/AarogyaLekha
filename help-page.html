@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Page</title>
+    <link rel="stylesheet" href="help-design.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="examplelogin.html" id="logo">
+                <img src="blacknobackground-removebg-preview.png" alt="App Logo" class="logo">
+            </a>
+            <span class="app-name" data-translate="al">Aarogya Lekha</span>
+        </div>
+        <div class="navbar-right">
+            <a href="examplelogin.html" class="nav-link1" data-translate="home">Home</a>
+            <a href="contact-us.html" class="nav-link" data-translate="contact">Contact Us</a>
+            <a href="about-us.html" class="nav-link1" data-translate="about">About Us</a>
+
+            <div class="dropdown">
+                <button class="dropdown-btn" id="selected-language">
+                    🇬🇧 English
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" data-lang="en">🇬🇧 English</a>
+                    <a href="#" data-lang="hi">🇮🇳 हिंदी</a>
+                    <a href="#" data-lang="mr">🇮🇳 मराठी</a>
+                </div>
+            </div>
+
+            <div class="theme-toggle-wrapper">
+                <button id="themeToggle" class="theme-toggle">
+                    <span class="sun">☀️</span>
+                    <span class="moon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 id="faq-title" data-translate="faq-title">Frequently Asked Questions</h1>
+        <div class="faq">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span class="plus">+</span> <span data-translate="q1">How do I log in to my account?</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-translate="a1">Enter your Hospital ID and password on the login page. If you forget your password, use the "Forgot Password" option.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span class="plus">+</span> <span data-translate="q2">Is my data secure on Aarogya Lekha?</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-translate="a2">Yes, we use strong encryption and security measures to protect your data from unauthorized access.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span class="plus">+</span> <span data-translate="q3">What should I do if I face technical issues?</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-translate="a3">Try refreshing the page or clearing your browser cache. If the problem persists, contact our support team.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span class="plus">+</span> <span data-translate="q4">Why is my login not working?</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-translate="a4">Check if your Hospital ID and password are correct. If the issue persists, try resetting your password.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="extra-question">
+            <h2 id="more-questions" data-translate="more-questions">Have more questions?</h2>
+            <textarea placeholder="Type your question here..." data-translate="textarea-placeholder"></textarea>
+            <button id="submitbutton" data-translate="submit">Submit</button>
+        </div>
+    </div>
+
+    <script src="help-script.js"></script>
+</body>
+</html>
