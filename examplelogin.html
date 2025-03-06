@@ -113,9 +113,6 @@
 
                 <label for="address" data-translate="add">Address</label>
                 <textarea id="address" name="address" rows="4"  placeholder="Enter your address"></textarea>
-
-                <label for="User ID" data-translate="usern">User ID</label>
-                <input type="text" id="user-id" name="user-id" placeholder="Enter User ID" pattern="\d{10}" title="Keep it strong" maxlength="10" required onkeypress="return isNumberKey(event)" >
 </div>
 <label for="password" data-translate="pass">Password</label>
 <div class="password-field">
@@ -146,8 +143,8 @@
 <h2 data-translate="login">LOG IN</h2>
 
 <form action="/login" method="POST">
-    <label for="login-username" data-translate="usern">User ID</label>
-    <input type="text" id="user-id" name="user-id" placeholder="Enter User ID" pattern="\d{10}" title="Keep it strong" maxlength="10" required onkeypress="return isNumberKey(event)" >
+  <label for="hospital-id" data-translate="hid">Hospital ID</label>
+  <input type="text" id="hospital-id" name="hospital-id" placeholder="Enter your Hospital ID" pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
 
     <label for="login-password" data-translate="pass">Password</label>
     <div class="password-field">

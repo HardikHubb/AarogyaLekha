@@ -25,7 +25,6 @@ body.dark {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #DAF4F0;
     padding: 10px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: fixed; /* Make it stick to the top */
@@ -34,6 +33,9 @@ body.dark {
     width: 100%; /* Full-width navbar */
     z-index: 1000; /* Ensure it stays above other elements */
     font-family: 'Times New Roman', Times, serif;
+    background: rgba(255, 255, 255, 0.1); /* Light transparent */
+    backdrop-filter: blur(10px); /* Blurry effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
   }
   .navbar.dark {
     background-color: #1f1f1f;
@@ -135,13 +137,14 @@ body.dark {
     height: 60px;
     margin-right: 20px;
     padding: 0%;
+   
     
   }
   
   .app-name {
     font-size: 2rem;
     font-weight: bold;
-    color: #333;
+    color: #ffffff;
   }
   .app-name.dark{
     color: white;
@@ -156,9 +159,11 @@ body.dark {
   .nav-link, 
   .nav-link1,
   .nav-link2 {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
     text-decoration: none;
     font-size: 1rem;
-    color: #000000;
     padding: 10px 15px; /* Add padding for the box-like effect */
     border-radius: 5px; /* Add rounded corners for better UI */
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
@@ -340,6 +345,7 @@ body.dark {
     width: 400px;
     height: 400px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    ;
     
      
     

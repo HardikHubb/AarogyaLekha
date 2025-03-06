@@ -590,11 +590,12 @@ padding:12px,20px;
 
 .card {
   width: 1100px;
-  height: 280px;
+  height: 320px;
   background-color: #f1f1f1;
   border-radius: 10px;
   flex-shrink: 0;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 45px;
 }
 
 .card img {
@@ -782,4 +783,264 @@ body {
 
 .dark .edit-btn:hover {
   background: #0056b3;
+}
+
+/* Patient ID Container */
+.patient-id-container {
+  position: relative;
+  background: rgb(255, 255, 255); /* Glass effect */
+  border-radius: 12px;
+  padding: 30px;
+  width: 400px;
+  height: 250px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-left: 250px;
+ 
+}
+
+
+
+/* Heading */
+.patient-id-container h1 {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: left;
+  color: #000000;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+  margin-top: 10px;
+ 
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* Form Styling */
+.patient-id-form {
+  display: flex;
+  flex-direction: column;
+ 
+  gap: 15px;
+}
+
+/* Labels */
+.patient-id-form label {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000000;
+  font-family: 'Poppins', sans-serif;
+  align-self: flex-start;
+  margin-top: 30px;
+}
+
+/* Input Fields */
+.patient-id-form input {
+  width: 90%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  border-color: #999999;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  
+}
+
+/* Placeholder Styling */
+.patient-id-form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+/* Input Focus Effect */
+.patient-id-form input:focus {
+  border-color: #00182a;
+ 
+}
+
+/* Button */
+.patient-id-form button {
+
+  width: 30%;
+  padding: 12px;
+  background: linear-gradient(135deg, #46b2ff, #09335e);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+
+  transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+
+}
+
+/* Button Hover */
+.patient-id-form button:hover {
+  background: linear-gradient(135deg, #09335e, #041a35);
+  
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .patient-id-container {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .patient-id-container h1 {
+    font-size: 28px;
+  }
+}
+
+.registration-container{
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+ 
+}
+
+.registration-form-container {
+  position: relative;
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 20px 30px;
+  width: 450px;
+  height: 500px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  overflow-y: auto; /* Enables scrolling */
+  margin: 80px auto 0; /* Centers the form */
+  margin-left: 250px;
+}
+
+/* Scrollbar Styling */
+.registration-form-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.registration-form-container::-webkit-scrollbar-thumb {
+  background: #365c85;
+  border-radius: 10px;
+}
+
+/* Center the heading */
+.registration-form-container h2 {
+  text-align: left;
+  font-size: 30px;
+  color: #000000;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Label Styling */
+.registration-form-container label {
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  color: #000000;
+  margin-bottom: 5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Input Fields */
+.registration-form-container input,
+.registration-form-container select,
+.registration-form-container textarea {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #000000;
+  outline: none;
+  transition: border 0.3s ease-in-out;
+  border-color: #999999;
+  margin-bottom: 15px;
+}
+
+/* Input and Textarea Placeholder Color */
+.registration-form-container input::placeholder,
+.registration-form-container textarea::placeholder {
+  color: rgba(0, 0, 0, 0.7);
+ 
+}
+
+/* Blood Group Dropdown */
+#bloodGroup {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  appearance: none;
+}
+
+/* Ensures dropdown options are also black */
+#bloodGroup option {
+  color: black;
+  background: white;
+}
+
+/* Button Styling */
+.registration-form-container button {
+  width: 70%;
+  padding: 10px;
+  background-color: #000000;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+ 
+}
+
+.registration-form-container button:hover {
+  background-color: #09335e;
+}
+
+/* Dark Mode Styling */
+.dark .registration-form-container {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.dark .registration-form-container h2,
+.dark .registration-form-container label {
+  color: #f0f0f0;
+}
+
+.dark .registration-form-container input,
+.dark .registration-form-container select,
+.dark .registration-form-container textarea {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#previewImage {
+  max-width: 100%;
+  margin-top: 10px;
+  border-radius: 5px;
+  display: none;
+}
+
+.age-picker {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+input[type="number"] {
+  width: 100px;
+  height: 20px;
+  font-size: 18px;
+  text-align: center;
+  border-color:  #999999;
+  border-radius: 8px;
+  outline: none;
 }

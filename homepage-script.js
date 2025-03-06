@@ -146,3 +146,65 @@ function saveChanges() {
 
     alert("Changes saved successfully!");
 }
+
+function isNumberKey(evt) {
+    var charCode = evt.which ? evt.which : evt.keyCode;
+    if (charCode < 48 || charCode > 57) {
+        return false;
+    }
+    return true;
+}
+
+function saveBloodGroup() {
+    const bloodGroup = document.getElementById("bloodGroup").value;
+    
+    if (!bloodGroup) {
+        alert("Please select your Blood Group.");
+        return;
+    }
+
+    // Store in Local Storage (for trial)
+    localStorage.setItem("userBloodGroup", bloodGroup);
+    alert("Blood Group Saved: " + bloodGroup);
+}
+
+// Retrieve stored Blood Group (if exists)
+window.onload = function() {
+    const storedBloodGroup = localStorage.getItem("userBloodGroup");
+    if (storedBloodGroup) {
+        document.getElementById("bloodGroup").value = storedBloodGroup;
+    }
+};
+
+const imageInput = document.getElementById('imageInput');
+const previewImage = document.getElementById('previewImage');
+
+// Handle image selection
+imageInput.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        
+        reader.onload = function() {
+            const base64Image = reader.result;
+            localStorage.setItem('storedImage', base64Image); // Store in Local Storage
+            previewImage.src = base64Image;
+            previewImage.style.display = 'block';
+        };
+    }
+});
+
+document.getElementById("imageInput").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const previewImage = document.getElementById("previewImage");
+            previewImage.src = e.target.result;
+            previewImage.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
