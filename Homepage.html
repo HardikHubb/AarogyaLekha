@@ -29,7 +29,7 @@
             <div class="dropdown1" id="profile-dropdown">
                 <div class="dropdown-data" id="dropdown-data">
                     <a href="#" id="profile-link">Profile</a>
-                    <a href="#" id="logout-link">Logout</a>
+                    <a href="examplelogin.html" id="logout-link">Logout</a>
                 </div>
             </div>
         </div>
@@ -108,7 +108,9 @@
         <!-- Lower Container (Bottom Half) -->
         <div class="lower-container">
             <div class="container1">
-                <h1>HI</h1>
+                <h1>"Stay hydrated – Drink at least 8 glasses of water daily!"</h1>
+                 <h1>   "Regular check-ups can prevent health complications. Book yours today!" </h1>
+                  <h1>  "Exercise for 30 minutes a day to maintain a healthy heart."</h1>
             </div>
             <div class="container2">
                 <h1>Important Links:</h1>
@@ -129,32 +131,28 @@
                 <h2>Profile</h2>
                 <div class="profile-grid">
                     <div class="profile-info">
-                        <label>Hospital Name:</label>
-                        <input type="text" id="hospitalName" value="ABC Hospital" readonly>
+                        <label for="hospitalName">Hospital Name:</label>
+                        <input type="text" id="hospitalName"  readonly>
                     </div>
                     <div class="profile-info">
-                        <label>Hospital ID:</label>
-                        <input type="text" id="hospitalID" value="1234567890" readonly>
+                        <label for="hospitalID">Hospital ID:</label>
+                        <input type="text" id="hospitalID"  readonly>
                     </div>
                     <div class="profile-info">
-                        <label>Email:</label>
-                        <input type="email" id="email" value="example@hospital.com" readonly>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email"  readonly>
                     </div>
                     <div class="profile-info">
-                        <label>State:</label>
-                        <input type="text" id="state" value="Maharashtra" readonly>
+                        <label for="state">State:</label>
+                        <input type="text" id="state"  readonly>
                     </div>
                     <div class="profile-info">
-                        <label>City:</label>
-                        <input type="text" id="city" value="Mumbai" readonly>
+                        <label for="city">City:</label>
+                        <input type="text" id="city"  readonly>
                     </div>
                     <div class="profile-info">
-                        <label>Address:</label>
-                        <input type="text" id="address" value="123 Street, Mumbai, India" readonly>
-                    </div>
-                    <div class="profile-info">
-                        <label>User ID:</label>
-                        <input type="text" id="userID" value="9876543210" readonly>
+                        <label for="address">Address:</label>
+                        <input type="text" id="address"  readonly>
                     </div>
                 </div>
     
@@ -168,8 +166,8 @@
         <div id="patient-id" class="page"> 
             <div class="patient-id-container">
                 <h1>Fetching Patient Data</h1>
-                <form id="patient-id-form" class="patient-id-form">
-                    <label for="patient-id-label" >Enter Patient ID</label>
+                <form id="patient-id-form" class="patient-id-form" onsubmit="return searchPatient(event)">
+                    <label for="patient-id-input" >Enter Patient ID</label>
                     <input type="text" id="patient-id-input" name="patient-id-input" placeholder="Enter Patient ID"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
                     <button type="submit"  >Search</button>
                 </form>
@@ -179,26 +177,38 @@
             <div id="registration-container">
                 
                 <div id="registration-form-container" class="registration-form-container">
-                <form id="registration-form"  action="/signup" method="POST">
+                <form id="registration-form" >
                     <h2>Patient Registration</h2>
                     <br>
-                    <label for="patient-name">Enter Patient Name:</label>
+                    <!-- Display Auto-Generated Patient ID -->
+        <label for="patient-id-display">Patient ID (Auto-Generated):</label>
+        <input type="text" id="patient-id-display" readonly> <!-- Read-only input -->
+                    <label for="patient-name-input">Enter Patient Name:</label>
                     <input type="text" id="patient-name-input" name="patient-name-input" placeholder="Enter Patient Name">
-                    <label for="patient-age">Pick Age:</label>
+                    <label for="bloodGroup">Gender:</label>
+                    <div id="bloodgGroupcontainer">
+                        <select id="gender">
+                            <option value="1">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <label for="patient-age-input">Pick Age:</label>
     <div class="age-picker">
-        <input type="number" id="patient-age-input" name="patient-age-input" min="1" max="100" step="1" value="25">
+        <input type="number" id="patient-age-input" name="patient-age-input" min="1" max="100" step="1" value="0">
        
     </div>
 
-                    <label for="patient-dob">Date of Birth</label>
+                    <label for="dob">Date of Birth</label>
                     <input type="date" id="dob" name="dob">
-                    <label for="patient-address" >Address</label>
-                    <textarea id="address" name="address" rows="4"  placeholder="Enter your address"></textarea>
-                    <label for="patient-number">Contact Number</label>
+                    <label for="aaddress" >Address</label>
+                    <textarea id="aaddress" name="aaddress" rows="4"  placeholder="Enter your address"></textarea>
+                    <label for="patient-number-input">Contact Number</label>
                     <input type="text" id="patient-number-input" name="patient-number-input" placeholder="Enter Contact Number"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
-                    <label for="patient-secondarynumber">Secondary Contact Number</label>
+                    <label for="patient-secondaryumber-input">Secondary Contact Number</label>
                     <input type="text" id="patient-secondarynumber-input" name="patient-secondarynumber-input" placeholder="Enter Secondary Contact Number"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
-                    <label for="patient-bloodGroup">Blood Group:</label>
+                    <label for="bloodGroup">Blood Group:</label>
                     <div id="bloodgGroupcontainer">
                         <select id="bloodGroup">
                             <option value="1">Select Blood Group</option>
@@ -214,12 +224,12 @@
                     </div>
                         
 
-<label for="patient-adharcard">Upload your aadhar card photo</label>
+<label for="imageInput">Upload your aadhar card photo</label>
                         <input type="file" id="imageInput" accept="image/*">
                         <br><br>
                         <img id="previewImage" style="max-width: 300px; display: none;">
 
-                        <button type="submit">Register</button>
+                        <button          type="submit" >Register</button>
                         
 
                 </form>

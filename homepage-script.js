@@ -6,8 +6,7 @@ function toggleSidebar() {
     content.classList.toggle("collapsed"); // Ensure this is toggled
 }
 
-// Call this function when you want to toggle the sidebar
-document.getElementById("toggle-button").addEventListener("click", toggleSidebar);
+
 
 
 // Show Selected Page
@@ -69,16 +68,7 @@ languageBtn.addEventListener('click', function() {
     document.querySelector('.language-container').classList.toggle('active');
 });
 
-// Language Options
-document.getElementById('english-option').addEventListener('click', function() {
-    changeLanguage('english');
-});
-document.getElementById('hindi-option').addEventListener('click', function() {
-    changeLanguage('hindi');
-});
-document.getElementById('marathi-option').addEventListener('click', function() {
-    changeLanguage('marathi');
-});
+
 
 // Function to Change Text Based on Language Selection
 function changeLanguage(language) {
@@ -135,15 +125,6 @@ function saveChanges() {
     document.querySelector(".save-btn").style.display = "none";
     document.querySelector(".edit-btn").style.display = "block";
 
-    // OPTIONAL: Store in localStorage (for persistence)
-    localStorage.setItem("hospitalName", document.getElementById("hospitalName").value);
-    localStorage.setItem("hospitalID", document.getElementById("hospitalID").value);
-    localStorage.setItem("email", document.getElementById("email").value);
-    localStorage.setItem("state", document.getElementById("state").value);
-    localStorage.setItem("city", document.getElementById("city").value);
-    localStorage.setItem("address", document.getElementById("address").value);
-    localStorage.setItem("userID", document.getElementById("userID").value);
-
     alert("Changes saved successfully!");
 }
 
@@ -176,35 +157,89 @@ window.onload = function() {
     }
 };
 
-const imageInput = document.getElementById('imageInput');
-const previewImage = document.getElementById('previewImage');
+document.addEventListener("DOMContentLoaded", function () {
+    generatePatientID(); // Generate ID when page loads
 
-// Handle image selection
-imageInput.addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        
-        reader.onload = function() {
-            const base64Image = reader.result;
-            localStorage.setItem('storedImage', base64Image); // Store in Local Storage
-            previewImage.src = base64Image;
-            previewImage.style.display = 'block';
+    document.getElementById("registration-form").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent page reload
+
+        let patients = JSON.parse(localStorage.getItem("patientData")) || []; // Fetch existing data
+
+        let patientId = document.getElementById("patient-id-display").value; // Use auto-generated ID
+        let patientName = document.getElementById("patient-name-input").value;
+        let patientAge = document.getElementById("patient-age-input").value;
+        let dob = document.getElementById("dob").value;
+        const aaddress = document.getElementById("aaddress").value;
+        let contact = document.getElementById("patient-number-input").value;
+        let secondaryContact=document.getElementById("patient-secondarynumber-input").value;
+        let bloodGroup = document.getElementById("bloodGroup").value;
+        let gender = document.getElementById("gender").value;
+        let newPatient = {
+            patientId,
+            patientName,
+            patientAge,
+            dob,
+            aaddress,
+            contact,
+            bloodGroup,
+            secondaryContact,
+            gender
         };
-    }
+        localStorage.setItem("aaddress", aaddress);
+
+        patients.push(newPatient);
+        localStorage.setItem("patientData", JSON.stringify(patients));
+
+        alert(`Patient Registered Successfully! \nPatient ID: ${patientId}`);
+
+        document.getElementById("registration-form").reset(); // Clear form fields
+        generatePatientID(); // Generate new ID for next patient
+    });
 });
 
-document.getElementById("imageInput").addEventListener("change", function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const previewImage = document.getElementById("previewImage");
-            previewImage.src = e.target.result;
-            previewImage.style.display = "block";
-        };
-        reader.readAsDataURL(file);
+// **Move Search Event Listener Outside**
+document.getElementById("patient-id-form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent page reload
+
+    let searchId = document.getElementById("patient-id-input").value;
+    console.log("Searching for Patient ID:", searchId);
+
+    let storedPatients = JSON.parse(localStorage.getItem("patientData")) || [];
+    console.log("Stored Patients in LocalStorage:", storedPatients);
+
+    let foundPatient = storedPatients.find(patient => patient.patientId === searchId);
+
+    if (foundPatient) {
+        console.log("Patient found!", foundPatient);
+        localStorage.setItem("selectedPatient", JSON.stringify(foundPatient));
+        window.location.href = "patient-data-display.html"; // Make sure the path is correct
+
+    } else {
+        alert("No patient found with this ID!");
     }
 });
+document.addEventListener("DOMContentLoaded", function () {
+    // Load stored data into profile inputs
+    document.getElementById("hospitalID").value = localStorage.getItem("hospitalID") || "";
+    document.getElementById("hospitalName").value = localStorage.getItem("hospitalName") || "";
+    document.getElementById("email").value = localStorage.getItem("email") || "";
+    document.getElementById("state").value = localStorage.getItem("state") || "";
+    document.getElementById("city").value = localStorage.getItem("city") || "";
+    document.getElementById("address").value = localStorage.getItem("address") || "";
+});
+
+// Function to generate unique Patient ID
+function generatePatientID() {
+    let patients = JSON.parse(localStorage.getItem("patientData")) || [];
+    
+    let newId;
+    if (patients.length === 0) {
+        newId = "0000000001"; // First ID
+    } else {
+        let lastId = patients[patients.length - 1].patientId; // Get last stored ID
+        newId = (parseInt(lastId) + 1).toString().padStart(10, '0'); // Increment and format
+    }
+
+    document.getElementById("patient-id-display").value = newId; // Show in form
+}
 

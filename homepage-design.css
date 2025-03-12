@@ -636,8 +636,14 @@ padding:12px,20px;
   
 }
 .container1{
-  margin-left: 230px;
+  margin-left: 250px;
   transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+}
+
+.container1 h1{
+  text-align: left;
+  font-size: 25px;
+  color: rgb(255, 255, 255);
 }
 .container2 h1{
   text-align: left;
@@ -797,6 +803,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.4);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   margin-left: 250px;
+  color: #000000;
  
 }
 
@@ -843,7 +850,7 @@ body {
   border-radius: 8px;
   border-color: #999999;
   background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: #000000;
   transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   
 }
@@ -968,6 +975,11 @@ body {
   color: rgba(0, 0, 0, 0.7);
  
 }
+/* Input Focus Effect */
+.registration-form-container input:focus {
+  border-color: #00182a;
+ 
+}
 
 /* Blood Group Dropdown */
 #bloodGroup {
@@ -989,7 +1001,7 @@ body {
 
 /* Button Styling */
 .registration-form-container button {
-  width: 70%;
+  width: 60%;
   padding: 10px;
   background-color: #000000;
   color: white;
@@ -997,6 +1009,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+ 
  
 }
 
@@ -1037,7 +1050,7 @@ body {
 
 input[type="number"] {
   width: 100px;
-  height: 20px;
+  height: 10px;
   font-size: 18px;
   text-align: center;
   border-color:  #999999;

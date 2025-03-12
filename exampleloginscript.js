@@ -91,6 +91,9 @@ function updateCityDropdown() {
 // Event listener to call the updateCityDropdown function on state change
 document.getElementById("state").addEventListener("change", updateCityDropdown);
 
+
+
+
 const translations = {
     en: {
       signup: "SIGN UP",
@@ -422,6 +425,37 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Login successful!");
     });
 })
+document.getElementById("signupform").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the form from reloading
+
+    // Redirect to Homepage.html
+    window.location.href = "Homepage.html";
+});    
+document.getElementById("signupform").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent actual form submission
+
+    // Get input values
+    const hospitalID = document.getElementById("hospital-id").value;
+    const hospitalName = document.getElementById("hospital-name").value;
+    const email = document.getElementById("email").value;
+    const state = document.getElementById("state").value;
+    const city = document.getElementById("city").value;
+    const address = document.getElementById("address").value;
+
+    // Store data in localStorage
+    localStorage.setItem("hospitalID", hospitalID);
+    localStorage.setItem("hospitalName", hospitalName);
+    localStorage.setItem("email", email);
+    localStorage.setItem("state", state);
+    localStorage.setItem("city", city);
+    localStorage.setItem("address", address);
+
+    // Redirect to Homepage.html and open Profile tab
+    
+    window.location.href = "Homepage.html";
+});
+
+
 
 fetch("hospital-data.json") // Ensure the correct path
     .then(response => response.json())
@@ -430,3 +464,5 @@ fetch("hospital-data.json") // Ensure the correct path
         console.log("Hospital Data Stored in LocalStorage");
     })
     .catch(error => console.error("Error fetching hospital data:", error));
+
+
