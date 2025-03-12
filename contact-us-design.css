@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-image: url("lightmode.jpg");
+  background-image: url("res/lightmode.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -13,7 +13,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 body.dark {
-  background-image: url("darkmode.jpg");
+  background-image: url("res/darkmode.jpg");
   color: #f0f0f0;
 }
 .navbar {
