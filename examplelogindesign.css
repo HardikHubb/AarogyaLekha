@@ -16,7 +16,7 @@ body {
 
 /* Dark Theme Styles */
 body.dark {
-    background-image: url("res/darkmode.jpg");
+    background-image: url("res/lightmode.jpg");
     color: #f0f0f0;
 }
 
@@ -32,8 +32,8 @@ body.dark {
     left: 0; /* Ensure it spans the full width */
     width: 100%; /* Full-width navbar */
     z-index: 1000; /* Ensure it stays above other elements */
-    font-family: 'Times New Roman', Times, serif;
     background: rgba(255, 255, 255, 0.1); /* Light transparent */
+    font-family:Arial, Helvetica, sans-serif;
     backdrop-filter: blur(10px); /* Blurry effect */
     -webkit-backdrop-filter: blur(10px); /* Safari support */
   }
@@ -345,7 +345,7 @@ body.dark {
     width: 400px;
     height: 400px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    ;
+    
     
      
     
@@ -382,7 +382,7 @@ body.dark {
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
-    margin-top: 5px;
+    margin-top: 10px;
     font-family: Arial, sans-serif;
     
 }
@@ -423,27 +423,27 @@ body.dark {
 .login-container button {
     width: 100%;
     padding: 10px;
-    background-color: #365c85;
-    color: white;
+    background-color:#659fdd ;
+    color: #ffffff;
     font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
 }
+
 
 .login-container button:hover {
-    background-color: #09335e;
+    background-color: #12599f;
 }
 
-.login-form a {
-    text-align: center;
-    margin-top: 10px;
-}
+
 
 .login-form a {
     color: hsl(0, 0%, 0%);
     text-decoration: none;
     font-size: 14px;
+    margin-top: 20px;
 }
 
 .login-form  a:hover {
@@ -454,21 +454,19 @@ body.dark {
     flex-direction: column;
     overflow-x: hidden;
     flex-wrap: wrap;
+    border-radius: 10px;
+
 }
-.form-container a{
+.form-container a {
+    display: block; /* or inline-block */
+    margin-top: 70px; /* Adjust as needed */
     text-decoration: none;
-    text-align: center;
-    color:#876d6d;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    color: #242424;
 }
-.form-container a.dark{
-    color: #f0f0f0;
-}
+
 .form-container a:hover{
-    
     text-decoration: underline;
-    
+    color: #000000;
 }
 .form-container a:hover.dark{
     color: grey;

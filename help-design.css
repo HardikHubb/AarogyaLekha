@@ -20,7 +20,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #DAF4F0;
     padding: 10px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: fixed; /* Make it stick to the top */
@@ -28,7 +27,10 @@ body {
     left: 0; /* Ensure it spans the full width */
     width: 100%; /* Full-width navbar */
     z-index: 1000; /* Ensure it stays above other elements */
-    font-family: 'Times New Roman', Times, serif;
+    font-family:Arial, Helvetica, sans-serif;
+    background: rgba(0, 0, 0, 0.1); /* Light transparent */
+    backdrop-filter: blur(10px); /* Blurry effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
   }
   .navbar.dark {
     background-color: #1f1f1f;
@@ -136,7 +138,7 @@ body {
   .app-name {
     font-size: 2rem;
     font-weight: bold;
-    color: #333;
+    color: #ffffff;
   }
   .app-name.dark{
     color: white;

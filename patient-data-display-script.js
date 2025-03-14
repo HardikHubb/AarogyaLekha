@@ -159,7 +159,7 @@ function loadLabReports() {
             <td>${report.type}</td>
             <td>${report.date}</td>
             <td><button onclick="viewReport('${report.fileData}')">View</button></td>
-            <td><button onclick="deleteReport(${report.id})">Delete</button></td>
+            <td><button onclick="deleteReport(${report.id})">🗑️Delete</button></td>
         </tr>
     `).join("");
 }

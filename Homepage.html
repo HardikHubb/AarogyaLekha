@@ -10,10 +10,6 @@
     <div class="component">
     <nav class="navbar">
         <div class="navbar-left">
-            <div class="sidebar-header">
-                <span id="sidebar-toggle" class="menu-icon" onclick="toggleSidebar()">☰</span>
-                
-            </div>
             <a href="Homepage.html" id="logo">
           <img src="res/blacknobackground-removebg-preview.png" alt="App Logo" class="logo">
             </a>
@@ -28,7 +24,6 @@
             <img src="res/userprofile.png" alt="Profile" class="profile-logo" id="profile-logo">
             <div class="dropdown1" id="profile-dropdown">
                 <div class="dropdown-data" id="dropdown-data">
-                    <a href="#" id="profile-link">Profile</a>
                     <a href="examplelogin.html" id="logout-link">Logout</a>
                 </div>
             </div>
@@ -39,17 +34,15 @@
        <!-- Sidebar -->
        <div class="sidebar" id="sidebar">
         <ul class="nav-links">
-            <li onclick="showPage('home')">
-                <img src="res/homepage.png" alt="Home Icon"> <span>Home</span>
-            </li>
-            <li onclick="showPage('profile')">
-                <img src="res/user.png" alt="Profile Icon"> <span>Profile</span>
-            </li>
+            
             <li onclick="showPage('patient-id')">
                 <img src="res/identification-card.png" alt="Patient ID Icon"> <span>Patient ID</span>
             </li>
             <li onclick="showPage('registration')">
                 <img src="res/registration.png" alt="Registration Icon"> <span>Patient Registration</span>
+            </li>
+            <li onclick="showPage('profile')">
+                <img src="res/user.png" alt="Profile Icon"> <span>Profile</span>
             </li>
             <li onclick="showPage('faq')">
                 <img src="res/faq.png" alt="FAQ Icon"> <span>FAQ</span>
@@ -85,48 +78,94 @@
         </ul>
     </div>
    
-    <div id="home" class="page active">
-    <!-- Main Content -->
-    <div id="main-content">
+        </div>
         
-        <!-- Scrolling Cards Section (Upper Half) -->
-        <div class="scrolling-container">
-            <div class="scrolling-cards">
-                <div class="card"><img src="res/cardimage1.jpg" alt="Card 1"></div>
-                <div class="card"><img src="res/cardimage2.webp" alt="Card 2"></div>
-                <div class="card"><img src="res/cardimage3.webp" alt="Card 3"></div>
-                <div class="card"><img src="res/cardimage4.webp" alt="Card 4"></div>
-                <div class="card"><img src="res/cardimage5.webp" alt="Card 5"></div>
-                <div class="card"><img src="res/cardimage1.jpg" alt="Card 1"></div>
-                <div class="card"><img src="res/cardimage2.webp" alt="Card 2"></div>
-                <div class="card"><img src="res/cardimage3.webp" alt="Card 3"></div>
-                <div class="card"><img src="res/cardimage4.webp" alt="Card 4"></div>
-                <div class="card"><img src="res/cardimage5.webp" alt="Card 5"></div>
-            </div>
+
+          
         </div>
-
-        <!-- Lower Container (Bottom Half) -->
-        <div class="lower-container">
-            <div class="container1">
-                <h1>"Stay hydrated – Drink at least 8 glasses of water daily!"</h1>
-                 <h1>   "Regular check-ups can prevent health complications. Book yours today!" </h1>
-                  <h1>  "Exercise for 30 minutes a day to maintain a healthy heart."</h1>
-            </div>
-            <div class="container2">
-                <h1>Important Links:</h1>
-                <ul>
-                <li><p>Ayushman Bharat Yojana: <a href="https://abdm.gov.in/">abdm.gov.in</a></p></li>
-                <li><p>BMC Official Website: <a href="https://www.mcgm.gov.in/">mcgm.gov.in</a></p></li>
-                <li><p>Ayushman Bharat Yojana: <a href="https://abdm.gov.in/">abdm.gov.in</a></p></li>
-                <li><p>Ayushman Bharat Yojana: <a href="https://abdm.gov.in/">abdm.gov.in</a></p></li>
-                </ul>
-
-            </div>
+        <div id="patient-id" class="page active"> 
+            <div class="patient-id-container">
+                <h1>Fetching Patient Data</h1>
+                <form id="patient-id-form" class="patient-id-form" onsubmit="return searchPatient(event)">
+                    <label for="patient-id-input" >Enter Patient ID</label>
+                    <input type="text" id="patient-id-input" name="patient-id-input" placeholder="Enter Patient ID"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
+                    <button type="submit"  >Search</button>
+                </form>
+            </div> 
         </div>
+        <div id="registration" class="page"> 
+            <div id="registration-container">
+                
+                <div id="registration-form-container" class="registration-form-container">
+                <form id="registration-form" >
+                    <h2>Patient Registration</h2>
+                    <br>
+                    <!-- Display Auto-Generated Patient ID -->
+        <label for="patient-id-display">Patient ID (Auto-Generated):</label>
+        <input type="text" id="patient-id-display" readonly> <!-- Read-only input -->
+        <label for="aadhar-num-input" >Enter Aadhar Card:</label>
+                    <input type="text" id="aadhar-num-input" name="aadhar-num-input" placeholder="Enter Aadhar Number"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
 
+                    <label for="patient-name-input">Enter Patient Name:</label>
+                    <input type="text" id="patient-name-input" name="patient-name-input" placeholder="Enter Patient Name">
+                    <label for="bloodGroup">Gender:</label>
+                    <div id="bloodgGroupcontainer">
+                        <select id="gender">
+                            <option value="1">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob">
+                    <label for="patient-age-input">Age:</label>
+    <div class="age-picker">
+        <input type="text" id="patient-age-input" name="patient-age-input" >
+       
     </div>
+
+                    
+                    <label for="aaddress" >Address</label>
+                    <textarea id="aaddress" name="aaddress" rows="4"  placeholder="Enter your address"></textarea>
+                    <label for="patient-number-input">Contact Number</label>
+                    <input type="text" id="patient-number-input" name="patient-number-input" placeholder="Enter Contact Number"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
+                    <label for="patient-secondaryumber-input">Secondary Contact Number</label>
+                    <input type="text" id="patient-secondarynumber-input" name="patient-secondarynumber-input" placeholder="Enter Secondary Contact Number"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
+                    <label for="bloodGroup">Blood Group:</label>
+                    <div id="bloodgGroupcontainer">
+                        <select id="bloodGroup">
+                            <option value="1">Select Blood Group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <label for="aadhar-num-input" data-translate="hid">Enter your Aadhar Number:</label>
+                <input type="text" id="aadhar-num-input" name="aadhar-num-input" placeholder="Enter your Aadhar Number" pattern="\d{12}" title="12 digits only" maxlength="12" required onkeypress="return isNumberKey(event)" >
+                        
+
+<label for="imageInput">Upload your aadhar card photo</label>
+                        <input type="file" id="imageInput" accept="image/*">
+                        <br><br>
+                        <img id="previewImage" style="max-width: 300px; display: none;">
+
+                        
+
+                        <button          type="submit" >Register</button>
+                        
+
+                </form>
+                </div>
+            </div>
+            </div>
         </div>
-        <div id="profile" class="page"> 
+        <div id="profile" class="page "> 
             <div class="outside-container">
                 <h2>Profile</h2>
                 <div class="profile-grid">
@@ -158,83 +197,6 @@
     
                 <button class="edit-btn" onclick="enableEditing()">Edit</button>
                 <button class="save-btn" onclick="saveChanges()" style="display: none;">Save</button>
-            </div>
-        </div>
-
-          
-        </div>
-        <div id="patient-id" class="page"> 
-            <div class="patient-id-container">
-                <h1>Fetching Patient Data</h1>
-                <form id="patient-id-form" class="patient-id-form" onsubmit="return searchPatient(event)">
-                    <label for="patient-id-input" >Enter Patient ID</label>
-                    <input type="text" id="patient-id-input" name="patient-id-input" placeholder="Enter Patient ID"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
-                    <button type="submit"  >Search</button>
-                </form>
-            </div> 
-        </div>
-        <div id="registration" class="page"> 
-            <div id="registration-container">
-                
-                <div id="registration-form-container" class="registration-form-container">
-                <form id="registration-form" >
-                    <h2>Patient Registration</h2>
-                    <br>
-                    <!-- Display Auto-Generated Patient ID -->
-        <label for="patient-id-display">Patient ID (Auto-Generated):</label>
-        <input type="text" id="patient-id-display" readonly> <!-- Read-only input -->
-                    <label for="patient-name-input">Enter Patient Name:</label>
-                    <input type="text" id="patient-name-input" name="patient-name-input" placeholder="Enter Patient Name">
-                    <label for="bloodGroup">Gender:</label>
-                    <div id="bloodgGroupcontainer">
-                        <select id="gender">
-                            <option value="1">Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <label for="patient-age-input">Pick Age:</label>
-    <div class="age-picker">
-        <input type="number" id="patient-age-input" name="patient-age-input" min="1" max="100" step="1" value="0">
-       
-    </div>
-
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" name="dob">
-                    <label for="aaddress" >Address</label>
-                    <textarea id="aaddress" name="aaddress" rows="4"  placeholder="Enter your address"></textarea>
-                    <label for="patient-number-input">Contact Number</label>
-                    <input type="text" id="patient-number-input" name="patient-number-input" placeholder="Enter Contact Number"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
-                    <label for="patient-secondaryumber-input">Secondary Contact Number</label>
-                    <input type="text" id="patient-secondarynumber-input" name="patient-secondarynumber-input" placeholder="Enter Secondary Contact Number"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
-                    <label for="bloodGroup">Blood Group:</label>
-                    <div id="bloodgGroupcontainer">
-                        <select id="bloodGroup">
-                            <option value="1">Select Blood Group</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                        </select>
-                    </div>
-                        
-
-<label for="imageInput">Upload your aadhar card photo</label>
-                        <input type="file" id="imageInput" accept="image/*">
-                        <br><br>
-                        <img id="previewImage" style="max-width: 300px; display: none;">
-
-                        <button          type="submit" >Register</button>
-                        
-
-                </form>
-                </div>
-            </div>
             </div>
         </div>
         <div id="faq" class="page"> <h1>Frequently Asked Questions</h1> </div>

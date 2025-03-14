@@ -1,12 +1,3 @@
-// Toggle Sidebar Open/Close
-function toggleSidebar() {
-    let sidebar = document.getElementById("sidebar");
-    let content = document.getElementById("main-content"); // Ensure this is the correct ID
-    sidebar.classList.toggle("collapsed");
-    content.classList.toggle("collapsed"); // Ensure this is toggled
-}
-
-
 
 
 // Show Selected Page
@@ -243,3 +234,38 @@ function generatePatientID() {
     document.getElementById("patient-id-display").value = newId; // Show in form
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const dobInput = document.getElementById("dob");
+    const ageInput = document.getElementById("patient-age-input");
+
+    if (!dobInput || !ageInput) {
+        console.error("DOB or Age input field not found.");
+        return; // Stop execution if elements don't exist
+    }
+
+    dobInput.addEventListener("change", function () {
+        const dobValue = dobInput.value;
+        console.log("Selected DOB:", dobValue); // Debugging
+
+        if (!dobValue) {
+            ageInput.value = "";
+            return;
+        }
+
+        const dob = new Date(dobValue);
+        if (isNaN(dob.getTime())) {
+            ageInput.value = "";
+            return;
+        }
+
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const monthDiff = today.getMonth() - dob.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+            age--; // Adjust age if birthday hasn't occurred yet
+        }
+
+        console.log("Calculated Age:", age); // Debugging
+        ageInput.value = age >= 0 ? age : "";
+    });
+});
