@@ -6,6 +6,8 @@
     <title >Login Page</title>
     <link rel="stylesheet" href="examplelogindesign.css">
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
 </head>
 <body>
     <div class="component">
@@ -142,9 +144,9 @@
     
 
 
-<form action="/login" method="POST">
-  <label for="hospital-id" data-translate="hid">Hospital ID</label>
-  <input type="text" id="hospital-id" name="hospital-id" placeholder="Enter your Hospital ID" pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
+<form id="loginform" action="/login" method="POST">
+  <label for="hospital-id-login" data-translate="hid">Hospital ID</label>
+  <input type="text" id="hospital-id-login" name="hospital-id-login" placeholder="Enter your Hospital ID" pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
 
     <label for="login-password" data-translate="pass">Password</label>
     <div class="password-field">
@@ -155,7 +157,7 @@
       required>
         <div class="toggle-icon" data-target="login-password"></div>
     </div>
-</form>
+
             
             <button id="login-btn"  type="submit" data-translate="LOGINN" >LOGIN</button>
             <a href="forgot-password.html" onclick="openForgotPassword()">Forgot your password??</a>
@@ -165,7 +167,7 @@
     </div>
         
     </div>
-    <script src="exampleloginscript.js"></script>
+    <script type="module"      src="exampleloginscript.js"></script>
     <script>
         function isNumberKey(evt) {
             var charCode = evt.which ? evt.which : evt.keyCode;
@@ -177,5 +179,7 @@
 
        
     </script>
+  
+    
 </body>
 </html>

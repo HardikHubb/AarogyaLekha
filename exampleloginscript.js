@@ -347,122 +347,85 @@ function redirectToPage(page) {
     window.location.href = page;  // Redirects to the specified page
 }
 
- // Capture form submission
-const form = document.getElementById('signupform'); // Fix: Corrected ID to match the form
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
 
-if (form) {
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCsDXa7OmJ2wcpaoV7RRJKBh6ithhABp7o",
+    authDomain: "aarogya-lekha.firebaseapp.com",
+    projectId: "aarogya-lekha",
+    storageBucket: "aarogya-lekha.firebasestorage.app",
+    messagingSenderId: "253609387970",
+    appId: "1:253609387970:web:66adac86ff86d88853185b",
+    measurementId: "G-JH2F1H03S6"
+  };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app); // Firestore Database
 
-        const hospitalName = document.getElementById('hospital-name').value;
+// **SIGNUP FUNCTION**
+document.getElementById("signupform").addEventListener("submit", async function(event) {
+    event.preventDefault();
 
-        // Save the hospital name in localStorage
-        localStorage.setItem('hospitalName', hospitalName);
+    let hospitalId = document.getElementById("hospital-id").value;
+    let hospitalName = document.getElementById("hospital-name").value;
+    let email = document.getElementById("email").value;
+    let state = document.getElementById("state").value;
+    let city = document.getElementById("city").value;
+    let address = document.getElementById("address").value;
+    let password = document.getElementById("password").value;
 
-        // Redirect to homepage after successful sign-up
-        window.location.href = 'examplelogin.html'; // Change to your actual page URL
-    });
-} else {
-    console.error("Signup form not found!");
-}
-
-
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("signupform").addEventListener("submit", function (event) {
-        event.preventDefault();
-        
-        const hospitalId = document.getElementById("hospital-id").value;
-        const hospitalName = document.getElementById("hospital-name").value;
-        const email = document.getElementById("email").value;
-        const state = document.getElementById("state").value;
-        const city = document.getElementById("city").value;
-        const address = document.getElementById("address").value;
-        const userId = document.getElementById("user-id").value;
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirm-password").value;
-
-        if (password !== confirmPassword) {
-            alert("Passwords do not match!");
-            return;
-        }
-
-        const hospitalData = {
-            hospitalId,
+    try {
+        // Store hospital data in Firestore using hospital ID as the document ID
+        await setDoc(doc(db, "hospitals", hospitalId), {
             hospitalName,
             email,
             state,
             city,
             address,
-            userId,
-            password
-        };
-        
-        localStorage.setItem(userId, JSON.stringify(hospitalData));
-        alert("Hospital registered successfully!");
+            password // Consider hashing the password for security
+        });
+
+        alert("Hospital Registered Successfully!");
         document.getElementById("signupform").reset();
-    });
+    } catch (error) {
+        alert("Error: " + error.message);
+    }
+});
 
-    document.querySelector("#login-form button[type='submit']").addEventListener("click", function (event) {
-        event.preventDefault();
+document.getElementById("loginform").addEventListener("submit", async function(event) {
+    event.preventDefault();
 
-        const loginUserId = document.querySelector("#login-form input[name='user-id']").value;
-        const loginPassword = document.querySelector("#login-form input[name='login-password']").value;
-        
-        const storedData = localStorage.getItem(loginUserId);
-        if (!storedData) {
-            alert("User ID not found!");
+    let hospitalId = document.getElementById("hospital-id-login").value;
+    let password = document.getElementById("login-password").value;
+
+    console.log("Logging in with Hospital ID:", hospitalId);
+
+    try {
+        const hospitalRef = doc(db, "hospitals", hospitalId);
+        const hospitalSnap = await getDoc(hospitalRef);
+
+        if (!hospitalSnap.exists()) {
+            alert("Hospital ID not found!");
+            console.log("No document found!");
             return;
         }
-        
-        const hospitalData = JSON.parse(storedData);
-        if (hospitalData.password !== loginPassword) {
+
+        let storedData = hospitalSnap.data();
+        console.log("Stored Data:", storedData);
+
+        if (storedData.password !== password) {
             alert("Incorrect password!");
             return;
         }
-        
-        alert("Login successful!");
-    });
-})
-document.getElementById("signupform").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent the form from reloading
 
-    // Redirect to Homepage.html
-    window.location.href = "Homepage.html";
-});    
-document.getElementById("signupform").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent actual form submission
+        alert("Login Successful!");
+        localStorage.setItem("hospitalId", hospitalId);
+        window.location.href = "Homepage.html";
 
-    // Get input values
-    const hospitalID = document.getElementById("hospital-id").value;
-    const hospitalName = document.getElementById("hospital-name").value;
-    const email = document.getElementById("email").value;
-    const state = document.getElementById("state").value;
-    const city = document.getElementById("city").value;
-    const address = document.getElementById("address").value;
-
-    // Store data in localStorage
-    localStorage.setItem("hospitalID", hospitalID);
-    localStorage.setItem("hospitalName", hospitalName);
-    localStorage.setItem("email", email);
-    localStorage.setItem("state", state);
-    localStorage.setItem("city", city);
-    localStorage.setItem("address", address);
-
-    // Redirect to Homepage.html and open Profile tab
-    
-    window.location.href = "Homepage.html";
+    } catch (error) {
+        console.error("Error during login:", error);
+        alert("Error: " + error.message);
+    }
 });
-
-
-
-fetch("hospital-data.json") // Ensure the correct path
-    .then(response => response.json())
-    .then(data => {
-        localStorage.setItem("hospitalData", JSON.stringify(data));
-        console.log("Hospital Data Stored in LocalStorage");
-    })
-    .catch(error => console.error("Error fetching hospital data:", error));
-
-

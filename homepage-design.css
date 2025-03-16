@@ -223,7 +223,7 @@ padding: 0%;
 
 /* Language Button */
 .language-btn {
-  background-color: #3498db;
+  background-color: #004089;
   color: #fff;
   font-size: 16px;
   padding: 10px 20px;
@@ -236,7 +236,7 @@ padding: 0%;
 
 /* Hover Effect for Language Button */
 .language-btn:hover {
-  background-color: #2980b9;
+  background-color: #002651;
   transform: scale(1.05);
 }
 
@@ -355,7 +355,7 @@ padding: 0%;
 /* Sidebar */
 .sidebar {
   width: 250px;
-  background: #2f697a;
+  background: #002650;
   color: white;
   height: calc(100vh - 60px); /* Adjust height based on navbar */
   padding-top: 20px;
@@ -404,7 +404,7 @@ padding: 0%;
 
 /* Hover Effect */
 .nav-links li:hover {
-    background: #0d4454; /* Change color on hover */
+    background: #001630; /* Change color on hover */
     color: white;
 }
 

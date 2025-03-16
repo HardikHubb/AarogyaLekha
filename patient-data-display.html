@@ -3,132 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Details</title>
-    <link rel="stylesheet" href="patient-data-display-design.css"> <!-- Link to external CSS -->
+    <title>Patient Records</title>
+    <link rel="stylesheet" href="patient-data-display-design.css"> <!-- Link to CSS -->
 </head>
 <body>
-<a href="Homepage.html">Back to Home</a>
-    <h2>Patient Details</h2>
-    <div id="patient-info">Loading...</div>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="examplelogin.html" id="logo">
+          <img src="res/blacknobackground-removebg-preview.png" alt="App Logo" class="logo">
+            </a>
+          <span class="app-name" data-translate="al">Aarogya Lekha</span>
+          
+        </div>
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'patient-details')">Patient Details</button>
+        <button class="tab-button" onclick="openTab(event, 'medical-history')">Medical History</button>
+        <button class="tab-button" onclick="openTab(event, 'chronic-diseases')">Chronic Diseases</button>
+        <button class="tab-button" onclick="openTab(event, 'lab-reports')">Lab Reports</button>
+        <button class="tab-button" onclick="openTab(event, 'print-export')">Print & Export</button>
+    </div>
+    </nav>
+    <div id="print-area">
+    <!-- Tab Content Sections -->
+    <div id="patient-details" class="tab-content active">
+        <h2>Patient Details</h2>
+        <div id="patient-info">Loading...</div>
+    </div>
 
-    <h3>Enter Disease Details</h3>
-    <div class="form-container">
-        <form id="disease-form">
-            <div class="form-group">
-                <label for="disease-name">Disease Name:</label>
-                <input type="text" id="disease-name" name="disease-name" required>
+    <div id="medical-history" class="tab-content">
+        <div class="form-group">
+        <h1>Medical History</h1>
+        <h2>Enter Disease Details</h2>
+        <div class="form-container">
+            <form id="disease-form">
+                
+                <label for="disease-list1">Select Disease:</label>
+                <select id="disease-list1" name="disease-list1">
+                    
+                        <option value="diabetes">Diabetes</option>
+                        <option value="hypertension">Hypertension</option>
+                        <option value="asthma">Asthma</option>
+                        <option value="arthritis">Arthritis</option>
+                        <option value="chronic_kidney_disease">Chronic Kidney Disease</option>
+                   
+                    
+                    
+                        <option value="cancer">Cancer</option>
+                        <option value="heart_attack">Heart Attack</option>
+                        <option value="stroke">Stroke</option>
+                        <option value="liver_failure">Liver Failure</option>
+                        <option value="sepsis">Sepsis</option>
+                 
+                    
+                    
+                        <option value="pneumonia">Pneumonia</option>
+                        <option value="dengue">Dengue Fever</option>
+                        <option value="malaria">Malaria</option>
+                        <option value="typhoid">Typhoid</option>
+                        <option value="tuberculosis">Tuberculosis</option>
+                    
+                    
+                    
+                        <option value="common_cold">Common Cold</option>
+                        <option value="flu">Flu</option>
+                        <option value="allergy">Allergies</option>
+                        <option value="food_poisoning">Food Poisoning</option>
+                        <option value="skin_rash">Skin Rash</option>
+                    
+                </select>
+                </div>
             </div>
+        
+                <div class="form-group">
+                    <label for="symptoms">Symptoms:</label>
+                    <input type="text" id="symptoms" name="symptoms" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="doctor">Assigned Doctor:</label>
+                    <input type="text" id="doctor" name="doctor" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="admit-date">Diagnosis Date:</label>
+                    <input type="date" id="admit-date" name="admit-date" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="medication">Prescribed Medication:</label>
+                    <textarea rows="3" id="medication" name="medication" required></textarea>
+                </div>
 
+        
+                <div class="form-group">
+                    <label for="remarks">Remarks:</label>
+                    <textarea rows="3" id="remarks" name="remarks"></textarea>
+                </div>
+        
+                <button type="submit" class="save-btn">Save</button>
+            </form>
+            <h3 id="patientdisease">Patient Disease History</h3>
+<div class="table-container">
+    <table id="disease-table">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Disease Name</th>
+                <th>Symptoms</th>
+                <th>Assigned Doctor</th>
+                <th>Date</th>
+                <th>Medication</th>
+                <th>Remarks</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="disease-list">
+            <tr><td colspan="7">No records available</td></tr>
+        </tbody>
+    </table>
+</div>
+    </div>
+        </div>
+
+        
+</div>
+    <div id="chronic-diseases" class="tab-content">
+        
             <div class="form-group">
-                <label for="symptoms">Symptoms:</label>
-                <input type="text" id="symptoms" name="symptoms" required>
-            </div>
+                <h1>Chronic Disease History</h1>
+                <h2>Enter Disease Details</h2>
+                <div class="form-container">
+                    <form id="chronic-disease-form">
+                        
+                        <label for="chronic-disease-select">Select Chronic Disease:</label>
+                        <select id="chronic-disease-select" name="chronic-disease">
+                            <option value="">Select Disease</option>
+                            <option value="diabetes">Diabetes</option>
+                            <option value="hypertension">Hypertension (High Blood Pressure)</option>
+                            <option value="asthma">Asthma</option>
+                            <option value="copd">Chronic Obstructive Pulmonary Disease (COPD)</option>
+                            <option value="arthritis">Arthritis</option>
+                            <option value="osteoporosis">Osteoporosis</option>
+                            <option value="ckd">Chronic Kidney Disease</option>
+                            <option value="parkinsons">Parkinson's Disease</option>
+                            <option value="alzheimers">Alzheimer's Disease</option>
+                            <option value="ms">Multiple Sclerosis</option>
+                            <option value="lupus">Lupus</option>
+                            <option value="psoriasis">Psoriasis</option>
+                            <option value="hiv">HIV/AIDS</option>
+                            <option value="heart-disease">Heart Disease</option>
+                            <option value="epilepsy">Epilepsy</option>
+                            <option value="ibs">Irritable Bowel Syndrome (IBS)</option>
+                            <option value="crohns">Crohn's Disease</option>
+                            <option value="cystic-fibrosis">Cystic Fibrosis</option>
+                            <option value="hypothyroidism">Hypothyroidism</option>
+                            <option value="migraine">Chronic Migraine</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label for="chronic-diagnosis-date">Date of Diagnosis:</label>
+                    <input type="date" id="chronic-diagnosis-date" name="chronic-diagnosis-date" required>
+                </div>
+        
+                <div class="form-group">
+                    <h3>Medical History & Symptoms</h3>
+                    <label for="chronic-current-symptoms">Current Symptoms (If any):</label>
+                    <input type="text" id="chronic-current-symptoms" name="chronic-current-symptoms" placeholder="Describe any ongoing symptoms">
+        
+                    <label for="chronic-past-symptoms">Past Symptoms (Leading to Diagnosis):</label>
+                    <textarea rows="3" id="chronic-past-symptoms" name="chronic-past-symptoms" placeholder="Mention symptoms experienced before diagnosis"></textarea>
+                </div>
+        
+                <div class="form-group">
+                    <h3>Previous Treatments Taken</h3>
+                    <label for="previous-medications">Past Medications:</label>
+                    <input type="text" id="previous-medications" name="previous-medications" placeholder="List previous medications">
+        
+                    <label for="previous-surgeries">Surgeries (If any):</label>
+                    <input type="text" id="previous-surgeries" name="previous-surgeries" placeholder="Mention past surgeries related to this disease">
+        
+                    <label for="previous-therapies">Therapies Undertaken:</label>
+                    <input type="text" id="previous-therapies" name="previous-therapies" placeholder="List any therapies (e.g., physiotherapy, chemotherapy)">
+                </div>
+        
+                <div class="form-group">
+                    <h3>Current Treatment Plan</h3>
+                    <label for="chronic-current-medications">Ongoing Medications:</label>
+                    <textarea rows="3" id="chronic-current-medications" name="chronic-current-medications" placeholder="Prescribed drugs, dosage, frequency"></textarea>
+        
+                    <label for="chronic-current-therapy">Current Therapies (If any):</label>
+                    <input type="text" id="chronic-current-therapy" name="chronic-current-therapy" placeholder="E.g., physiotherapy, speech therapy">
+        
+                </div>
+        
+                <div class="form-group">
+                    <label for="chronic-doctor">Assigned Doctor:</label>
+                    <input type="text" id="chronic-doctor" name="chronic-doctor" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="chronic-remarks">Additional Remarks:</label>
+                    <textarea rows="3" id="chronic-remarks" name="chronic-remarks"></textarea>
+                </div>
+        
+                <button type="submit" class="save-btn">Save</button>
+            </form>
+            <h3>Patient Disease History</h3>
+        <table id="chronic-disease-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Disease</th>
+                    <th>Symptoms</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Past Medications</th>
+                    <th>Ongoing Medications</th>
+                    <th>Current Therapy</th>
+                    <th>Surgery</th>
+                    <th>Therapies</th>
+                    <th>Remarks</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="chronic-disease-list">
+                <tr><td colspan="9">No records available</td></tr>
+            </tbody>
+        </table>
+    </div>
+        </div>
+        
+    
 
+    </div>
+</div>
+
+    <div id="lab-reports" class="tab-content">
+        <h2>Lab Reports</h2>
+        <form id="lab-report-form">
             <div class="form-group">
-                <label for="doctor">Assigned Doctor:</label>
-                <input type="text" id="doctor" name="doctor" required>
+                <label for="report-type">Report Type:</label>
+                <select id="report-type" name="report-type" required>
+                    <option value="">Select Report Type</option>
+                    <option value="CT Scan">CT Scan</option>
+                    <option value="X-ray">X-ray</option>
+                    <option value="MRI">MRI</option>
+                    <option value="Blood Test">Blood Test</option>
+                    <option value="Ultrasound">Ultrasound</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
-
+    
             <div class="form-group">
-                <label for="admit-date">Date:</label>
-                <input type="date" id="admit-date" name="admit-date" required>
+                <label for="report-date">Report Date:</label>
+                <input type="date" id="report-date" name="report-date" required>
             </div>
-
-            
-
+    
             <div class="form-group">
-                <label for="medication">Medication:</label>
-                <textarea rows="3" type="medication" id="medication" name="medication" required></textarea>
+                <label for="report-file">Upload Report:</label>
+                <input type="file" id="report-file" name="report-file" accept=".pdf, .jpg, .png" required>
             </div>
-
-            <div class="form-group">
-                <label for="remarks">Remarks:</label>
-                <textarea rows="3" type="remarks" id="remarks" name="remarks" > </textarea>
-            </div>
-
-
-           
-            <button type="submit" class="save-btn">Save</button>
+    
+            <button type="submit" class="save-report-btn">Save Report</button>
         </form>
     </div>
 
-    <h3>Patient Disease History</h3>
-    <div class="table-container">
-        <table id="disease-table">
+    <div id="print-export" class="tab-content">
+
+        <!-- 🔹 Hidden Printable Section -->
+<div id="print-section" style="display: none;">
+    <div id="printable-content">
+        <!-- Patient Profile -->
+        <div id="patient-profile">
+            <h2>Patient Report</h2>
+            <img id="patient-photo" src="profile.jpg" alt="Patient Photo" width="100">
+            <p><strong>Name:</strong> <span id="print-name">John Doe</span></p>
+            <p><strong>Patient ID:</strong> <span id="print-id">12345</span></p>
+            <p><strong>Age:</strong> <span id="print-age">35</span></p>
+            <p><strong>Gender:</strong> <span id="print-gender">Male</span></p>
+        </div>
+
+        <hr> <!-- Break Line -->
+
+        <!-- Diseases Table -->
+        <h2>Medical History</h2>
+        <table border="1">
             <thead>
                 <tr>
                     <th>S.No</th>
                     <th>Disease Name</th>
                     <th>Symptoms</th>
-                    <th>Assigned Doctor</th>
+                    <th>Doctor</th>
                     <th>Date</th>
                     <th>Medication</th>
                     <th>Remarks</th>
                 </tr>
             </thead>
-            <tbody id="disease-list">
-                <tr><td colspan="8">No records available</td></tr>
+            <tbody id="print-disease-list">
+                <!-- Diseases will be inserted dynamically -->
+            </tbody>
+        </table>
+
+        <hr> <!-- Break Line -->
+
+        <!-- Chronic Diseases Table -->
+        <h2>Chronic Diseases</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Disease Name</th>
+                    <th>Symptoms</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Medication</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody id="print-chronic-list">
+                <!-- Chronic diseases will be inserted dynamically -->
             </tbody>
         </table>
     </div>
-
-    <h3>Lab Reports</h3>
-<div class="form-container">
-    <form id="lab-report-form">
-        <div class="form-group">
-            <label for="report-type">Report Type:</label>
-            <select id="report-type" name="report-type" required>
-                <option value="">Select Report Type</option>
-                <option value="CT Scan">CT Scan</option>
-                <option value="X-ray">X-ray</option>
-                <option value="MRI">MRI</option>
-                <option value="Blood Test">Blood Test</option>
-                <option value="Ultrasound">Ultrasound</option>
-                <option value="Other">Other</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="report-date">Report Date:</label>
-            <input type="date" id="report-date" name="report-date" required>
-        </div>
-
-        <div class="form-group">
-            <label for="report-file">Upload Report:</label>
-            <input type="file" id="report-file" name="report-file" accept=".pdf, .jpg, .png" required>
-        </div>
-
-        <button type="submit" class="save-report-btn">Save Report</button>
-    </form>
 </div>
 
-<h3>Previous Lab Reports</h3>
-<div class="table-container">
-    <table id="lab-report-table">
-        <thead>
-            <tr>
-                <th>S.No</th>
-                <th>Report Type</th>
-                <th>Report Date</th>
-                <th>View</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody id="lab-report-list">
-            <tr><td colspan="5">No reports available</td></tr>
-        </tbody>
-    </table>
-</div>
-<!-- Modal for Viewing Reports (Initially Hidden) -->
-<div id="report-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <iframe id="report-viewer" width="100%" height="400px"></iframe>
+<!-- 🔹 Buttons -->
+<button onclick="printReport()">🖨️ Print Report</button>
+<button onclick="exportToPDF()">📄 Export as PDF</button>
+
+<!-- ✅ Include jsPDF & html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     </div>
-</div>
 
-
-
-    <script src="patient-data-display-script.js"></script> <!-- Link to external JavaScript -->
+    <script src="patient-data-display-script.js"></script> <!-- Link to JavaScript -->
 </body>
 </html>

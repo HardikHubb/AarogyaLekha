@@ -1,26 +1,5 @@
 
 
-// Show Selected Page
-function showPage(pageId) {
-    let pages = document.querySelectorAll(".page");
-    pages.forEach(page => page.classList.remove("active"));
-
-    document.getElementById(pageId).classList.add("active");
-}
-function redirectToPage(page) {
-    window.location.href = page;  // Redirects to the specified page
-}
-
-// Fetch the hospital name from localStorage
-const hospitalName = localStorage.getItem('hospitalName');
-
-// Display the hospital name next to the profile icon if available
-if (hospitalName) {
-    document.getElementById('hospital-name').textContent = hospitalName;
-} else {
-    document.getElementById('hospital-name').textContent = 'Hospital Name Not Set';
-}
-
 // Existing JavaScript for dropdown functionality remains the same
 const profileLogo = document.getElementById('profile-logo');
 const dropdownData = document.getElementById('dropdown-data');
@@ -148,91 +127,6 @@ window.onload = function() {
     }
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-    generatePatientID(); // Generate ID when page loads
-
-    document.getElementById("registration-form").addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent page reload
-
-        let patients = JSON.parse(localStorage.getItem("patientData")) || []; // Fetch existing data
-
-        let patientId = document.getElementById("patient-id-display").value; // Use auto-generated ID
-        let patientName = document.getElementById("patient-name-input").value;
-        let patientAge = document.getElementById("patient-age-input").value;
-        let dob = document.getElementById("dob").value;
-        const aaddress = document.getElementById("aaddress").value;
-        let contact = document.getElementById("patient-number-input").value;
-        let secondaryContact=document.getElementById("patient-secondarynumber-input").value;
-        let bloodGroup = document.getElementById("bloodGroup").value;
-        let gender = document.getElementById("gender").value;
-        let newPatient = {
-            patientId,
-            patientName,
-            patientAge,
-            dob,
-            aaddress,
-            contact,
-            bloodGroup,
-            secondaryContact,
-            gender
-        };
-        localStorage.setItem("aaddress", aaddress);
-
-        patients.push(newPatient);
-        localStorage.setItem("patientData", JSON.stringify(patients));
-
-        alert(`Patient Registered Successfully! \nPatient ID: ${patientId}`);
-
-        document.getElementById("registration-form").reset(); // Clear form fields
-        generatePatientID(); // Generate new ID for next patient
-    });
-});
-
-// **Move Search Event Listener Outside**
-document.getElementById("patient-id-form").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent page reload
-
-    let searchId = document.getElementById("patient-id-input").value;
-    console.log("Searching for Patient ID:", searchId);
-
-    let storedPatients = JSON.parse(localStorage.getItem("patientData")) || [];
-    console.log("Stored Patients in LocalStorage:", storedPatients);
-
-    let foundPatient = storedPatients.find(patient => patient.patientId === searchId);
-
-    if (foundPatient) {
-        console.log("Patient found!", foundPatient);
-        localStorage.setItem("selectedPatient", JSON.stringify(foundPatient));
-        window.location.href = "patient-data-display.html"; // Make sure the path is correct
-
-    } else {
-        alert("No patient found with this ID!");
-    }
-});
-document.addEventListener("DOMContentLoaded", function () {
-    // Load stored data into profile inputs
-    document.getElementById("hospitalID").value = localStorage.getItem("hospitalID") || "";
-    document.getElementById("hospitalName").value = localStorage.getItem("hospitalName") || "";
-    document.getElementById("email").value = localStorage.getItem("email") || "";
-    document.getElementById("state").value = localStorage.getItem("state") || "";
-    document.getElementById("city").value = localStorage.getItem("city") || "";
-    document.getElementById("address").value = localStorage.getItem("address") || "";
-});
-
-// Function to generate unique Patient ID
-function generatePatientID() {
-    let patients = JSON.parse(localStorage.getItem("patientData")) || [];
-    
-    let newId;
-    if (patients.length === 0) {
-        newId = "0000000001"; // First ID
-    } else {
-        let lastId = patients[patients.length - 1].patientId; // Get last stored ID
-        newId = (parseInt(lastId) + 1).toString().padStart(10, '0'); // Increment and format
-    }
-
-    document.getElementById("patient-id-display").value = newId; // Show in form
-}
 
 document.addEventListener("DOMContentLoaded", function () {
     const dobInput = document.getElementById("dob");
@@ -269,3 +163,230 @@ document.addEventListener("DOMContentLoaded", function () {
         ageInput.value = age >= 0 ? age : "";
     });
 });
+
+
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+import {  getFirestore, collection, getDoc,getDocs, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
+
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCsDXa7OmJ2wcpaoV7RRJKBh6ithhABp7o",
+    authDomain: "aarogya-lekha.firebaseapp.com",
+    projectId: "aarogya-lekha",
+    storageBucket: "aarogya-lekha.appspot.com",
+    messagingSenderId: "253609387970",
+    appId: "1:253609387970:web:66adac86ff86d88853185b",
+    measurementId: "G-JH2F1H03S6"
+  };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app); // Firestore Database
+
+export { db };  // Export Firestore database
+
+
+
+
+function showPage(pageId) {
+    let pages = document.querySelectorAll(".page");
+    pages.forEach(page => page.classList.remove("active"));
+
+    let pageToShow = document.getElementById(pageId);
+    if (pageToShow) {
+        pageToShow.classList.add("active");
+    } else {
+        console.error(`Page with ID '${pageId}' not found.`);
+    }
+}
+
+// ✅ Attach to `window` so it's accessible in HTML
+window.showPage = showPage;
+
+
+
+// Function to fetch and display hospital name
+async function displayHospitalName() {
+    const hospitalId = localStorage.getItem("hospitalId"); // Get logged-in hospital ID
+
+    if (!hospitalId) {
+        console.error("No hospital ID found. User might not be logged in.");
+        document.getElementById("hospital-name").textContent = "Not Logged In";
+        return;
+    }
+
+    try {
+        const hospitalRef = doc(db, "hospitals", hospitalId);
+        const hospitalSnap = await getDoc(hospitalRef);
+
+        if (hospitalSnap.exists()) {
+            const hospitalData = hospitalSnap.data();
+            document.getElementById("hospital-name").textContent = hospitalData.hospitalName; // ✅ Display fetched name
+        } else {
+            console.warn("Hospital data not found in Firestore.");
+            document.getElementById("hospital-name").textContent = "Hospital Not Found";
+        }
+    } catch (error) {
+        console.error("Error fetching hospital data:", error);
+        document.getElementById("hospital-name").textContent = "Error Loading Name";
+    }
+}
+
+
+
+// Call function to display hospital name
+displayHospitalName();
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    generatePatientID(); 
+
+    document.getElementById("registration-form").addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent form reset before processing
+
+        let patientId = document.getElementById("patient-id-display").value;
+        let patientName = document.getElementById("patient-name-input").value.trim();
+        let patientAge = document.getElementById("patient-age-input").value.trim();
+        let dob = document.getElementById("dob").value.trim();
+        let address = document.getElementById("aaddress").value.trim();
+        let contact = document.getElementById("patient-number-input").value.trim();
+        let secondaryContact = document.getElementById("patient-secondarynumber-input").value.trim();
+        let bloodGroup = document.getElementById("bloodGroup").value.trim();
+        let gender = document.getElementById("gender").value.trim();
+
+        console.log("Captured Values Before Validation:");
+        console.log({ patientId, patientName, patientAge, dob, address, contact, secondaryContact, bloodGroup, gender });
+
+        // Validation before proceeding to Firestore
+        if (!patientName || !dob || !contact) {
+            alert("Please fill all required fields!");
+            return;
+        }
+
+        let newPatient = {
+            patientId,
+            patientName,
+            patientAge,
+            dob,
+            address,
+            contact,
+            secondaryContact,
+            bloodGroup,
+            gender
+        };
+
+        try {
+            await setDoc(doc(db, "patients", patientId), newPatient, { merge: true });
+            alert(`Patient Registered Successfully! \nPatient ID: ${patientId}`);
+
+            document.getElementById("registration-form").reset(); // Reset after successful storage
+            generatePatientID();
+        } catch (error) {
+            console.error("Error adding patient to Firestore: ", error);
+            alert("Error: " + error.message);
+        }
+    });
+});
+
+// Function to Retrieve Hospital Data
+async function fetchHospitalProfile() {
+    // Get Hospital ID from Local Storage (saved during login)
+    let hospitalId = localStorage.getItem("hospitalId");
+
+    if (!hospitalId) {
+        alert("No hospital ID found! Please log in again.");
+        window.location.href = "examplelogin.html"; // Redirect to login if no ID is found
+        return;
+    }
+
+    try {
+        // Fetch Hospital Data from Firestore
+        const hospitalRef = doc(db, "hospitals", hospitalId);
+        const hospitalSnap = await getDoc(hospitalRef);
+
+        if (!hospitalSnap.exists()) {
+            alert("Hospital profile not found!");
+            return;
+        }
+
+        let hospitalData = hospitalSnap.data();
+
+        // Populate Input Fields with Retrieved Data
+        document.getElementById("hospitalName").value = hospitalData.hospitalName || "";
+        document.getElementById("hospitalID").value = hospitalId; // ID is the document key
+        document.getElementById("pemail").value = hospitalData.email || "";
+        document.getElementById("pstate").value = hospitalData.state || "";
+        document.getElementById("pcity").value = hospitalData.city || "";
+        document.getElementById("paddress").value = hospitalData.address || "";
+
+    } catch (error) {
+        console.error("Error fetching hospital profile:", error);
+        alert("Error fetching profile: " + error.message);
+    }
+}
+
+// Call Function When Page Loads
+document.addEventListener("DOMContentLoaded", fetchHospitalProfile);
+
+
+// Function to Search Patient by ID
+// Function to Search Patient by ID
+async function searchPatient(event) {
+    event.preventDefault(); // Prevent form from reloading the page
+
+    let patientId = document.getElementById("patient-id-input").value.trim();
+
+    if (!patientId) {
+        alert("Please enter a valid Patient ID!");
+        return;
+    }
+
+    try {
+        // Fetch Patient Data from Firestore
+        const patientRef = doc(db, "patients", patientId);
+        const patientSnap = await getDoc(patientRef);
+
+       
+
+        let patientData = patientSnap.data();
+        patientData.patientId = patientId; // Store ID along with data
+
+        // Save Data to Local Storage
+        localStorage.setItem("selectedPatient", JSON.stringify(patientData));
+
+        // Redirect to Patient Display Page
+        window.location.href = "patient-data-display.html";
+    } catch (error) {
+        console.error("Error retrieving patient data:", error);
+        alert("Error fetching patient data: " + error.message);
+    }
+}
+
+// Attach event listener
+document.getElementById("patient-id-form").addEventListener("submit", searchPatient);
+
+async function generatePatientID() {
+    try {
+        console.log("Fetching Patient IDs...");
+
+        const patientsCollection = collection(db, "patients");
+        const snapshot = await getDocs(patientsCollection);
+
+        let maxId = 0;
+
+        snapshot.forEach((doc) => {
+            let docId = parseInt(doc.id, 10); // Convert document ID to a number
+            if (!isNaN(docId) && docId > maxId) {
+                maxId = docId;
+            }
+        });
+
+        let newId = (maxId + 1).toString().padStart(10, '0'); // Ensures 10-digit format
+        document.getElementById("patient-id-display").value = newId;
+        console.log("New Patient ID Generated:", newId);
+
+    } catch (error) {
+        console.error("Error generating Patient ID:", error.message);
+        alert("Error generating Patient ID: " + error.message);
+    }
+}
