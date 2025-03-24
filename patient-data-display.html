@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Records</title>
     <link rel="stylesheet" href="patient-data-display-design.css"> <!-- Link to CSS -->
+    <link rel="stylesheet" href="https://icdcdn.who.int/embeddedct/icd11ect-1.7.1.css">
+    <!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
+<!-- jQuery (Required for Select2) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 </head>
 <body>
     <nav class="navbar">
@@ -25,53 +33,24 @@
     </nav>
     <div id="print-area">
     <!-- Tab Content Sections -->
-    <div id="patient-details" class="tab-content active">
+    <div id="patient-details" class="tab-content active" data-tab="patient-details">
         <h2>Patient Details</h2>
         <div id="patient-info">Loading...</div>
     </div>
 
-    <div id="medical-history" class="tab-content">
+    <div id="medical-history" class="tab-content" data-tab="medical-history">
+        <form id="disease-form" onsubmit="event.preventDefault();">
         <div class="form-group">
         <h1>Medical History</h1>
         <h2>Enter Disease Details</h2>
         <div class="form-container">
-            <form id="disease-form">
-                
-                <label for="disease-list1">Select Disease:</label>
-                <select id="disease-list1" name="disease-list1">
-                    
-                        <option value="diabetes">Diabetes</option>
-                        <option value="hypertension">Hypertension</option>
-                        <option value="asthma">Asthma</option>
-                        <option value="arthritis">Arthritis</option>
-                        <option value="chronic_kidney_disease">Chronic Kidney Disease</option>
-                   
-                    
-                    
-                        <option value="cancer">Cancer</option>
-                        <option value="heart_attack">Heart Attack</option>
-                        <option value="stroke">Stroke</option>
-                        <option value="liver_failure">Liver Failure</option>
-                        <option value="sepsis">Sepsis</option>
-                 
-                    
-                    
-                        <option value="pneumonia">Pneumonia</option>
-                        <option value="dengue">Dengue Fever</option>
-                        <option value="malaria">Malaria</option>
-                        <option value="typhoid">Typhoid</option>
-                        <option value="tuberculosis">Tuberculosis</option>
-                    
-                    
-                    
-                        <option value="common_cold">Common Cold</option>
-                        <option value="flu">Flu</option>
-                        <option value="allergy">Allergies</option>
-                        <option value="food_poisoning">Food Poisoning</option>
-                        <option value="skin_rash">Skin Rash</option>
-                    
-                </select>
-                </div>
+            <p id="selet-diseases-para">Select Diseases:</p>
+            <link href='https://clinicaltables.nlm.nih.gov/autocomplete-lhc-versions/19.2.4/autocomplete-lhc.min.css' rel="stylesheet">
+            <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+            <script src='https://clinicaltables.nlm.nih.gov/autocomplete-lhc-versions/19.2.4/autocomplete-lhc.min.js'></script>
+            
+            <input type="text" id="condition" placeholder="Condition">
+           
             </div>
         
                 <div class="form-group">
@@ -100,34 +79,17 @@
                     <textarea rows="3" id="remarks" name="remarks"></textarea>
                 </div>
         
-                <button type="submit" class="save-btn">Save</button>
+                <button type="submit" id="save-btn" class="save-btn">Save</button>
             </form>
             <h3 id="patientdisease">Patient Disease History</h3>
-<div class="table-container">
-    <table id="disease-table">
-        <thead>
-            <tr>
-                <th>S.No</th>
-                <th>Disease Name</th>
-                <th>Symptoms</th>
-                <th>Assigned Doctor</th>
-                <th>Date</th>
-                <th>Medication</th>
-                <th>Remarks</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="disease-list">
-            <tr><td colspan="7">No records available</td></tr>
-        </tbody>
-    </table>
+<div id="disease-container">
+    <p>No records available</p> 
 </div>
-    </div>
         </div>
 
         
 </div>
-    <div id="chronic-diseases" class="tab-content">
+    <div id="chronic-diseases" class="tab-content" data-tab="chronic-diseases">
         
             <div class="form-group">
                 <h1>Chronic Disease History</h1>
@@ -136,7 +98,7 @@
                     <form id="chronic-disease-form">
                         
                         <label for="chronic-disease-select">Select Chronic Disease:</label>
-                        <select id="chronic-disease-select" name="chronic-disease">
+                        <select id="chronic-disease-select" name="chronic-disease" class="searchable-select">
                             <option value="">Select Disease</option>
                             <option value="diabetes">Diabetes</option>
                             <option value="hypertension">Hypertension (High Blood Pressure)</option>
@@ -208,30 +170,10 @@
                     <textarea rows="3" id="chronic-remarks" name="chronic-remarks"></textarea>
                 </div>
         
-                <button type="submit" class="save-btn">Save</button>
+                <button type="submit" class="save-btnc">Save</button>
             </form>
             <h3>Patient Disease History</h3>
-        <table id="chronic-disease-table">
-            <thead>
-                <tr>
-                    <th>S.No</th>
-                    <th>Disease</th>
-                    <th>Symptoms</th>
-                    <th>Doctor</th>
-                    <th>Date</th>
-                    <th>Past Medications</th>
-                    <th>Ongoing Medications</th>
-                    <th>Current Therapy</th>
-                    <th>Surgery</th>
-                    <th>Therapies</th>
-                    <th>Remarks</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="chronic-disease-list">
-                <tr><td colspan="9">No records available</td></tr>
-            </tbody>
-        </table>
+            <div id="chronic-disease-container"></div>
     </div>
         </div>
         
@@ -240,7 +182,7 @@
     </div>
 </div>
 
-    <div id="lab-reports" class="tab-content">
+    <div id="lab-reports" class="tab-content" data-tab="lab-reports">
         <h2>Lab Reports</h2>
         <form id="lab-report-form">
             <div class="form-group">
@@ -266,11 +208,11 @@
                 <input type="file" id="report-file" name="report-file" accept=".pdf, .jpg, .png" required>
             </div>
     
-            <button type="submit" class="save-report-btn">Save Report</button>
+            <button type="submit" id="save-report-btn"   class="save-report-btn">Save Report</button>
         </form>
     </div>
 
-    <div id="print-export" class="tab-content">
+    <div id="print-export" class="tab-content" data-tab="print-export">
 
         <!-- 🔹 Hidden Printable Section -->
 <div id="print-section" style="display: none;">
@@ -333,12 +275,19 @@
 <button onclick="printReport()">🖨️ Print Report</button>
 <button onclick="exportToPDF()">📄 Export as PDF</button>
 
-<!-- ✅ Include jsPDF & html2canvas -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
     </div>
 
-    <script src="patient-data-display-script.js"></script> <!-- Link to JavaScript -->
+    <!-- ✅ Include jsPDF & html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
+    <script type="module" src="patient-data-display-script.js">
+
+    </script> <!-- Link to JavaScript -->
+    
+    
 </body>
 </html>

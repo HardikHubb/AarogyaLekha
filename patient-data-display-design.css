@@ -31,19 +31,15 @@ h1,h2, h3 {
 
 
 #patient-info, .form-container, .table-container {
-    background: white;
+    background: rgb(255, 255, 255);
     padding: 50px;
     border-radius: 8px;
    
     margin-top: 15px;
-    margin: 20px;
+    margin-left: 60px;
 }
 
 /* Form Styling */
-.form-container {
-    
-    margin: 20px;
-}
 
 .form-group {
     display: flex;
@@ -55,7 +51,7 @@ h1,h2, h3 {
 label {
     font-weight: bold;
     margin-bottom: 5px;
-    margin-left: 200px;
+    margin-left: 270px;
     
 
 }
@@ -65,7 +61,7 @@ input {
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 70%;
-    margin-left: 200px;
+    margin-left: 270px;
 }
 .form-container select{
     padding: 8px;
@@ -93,6 +89,75 @@ input {
     background: #218838;
 }
 
+.save-btnc {
+    background: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 5%;
+    font-size: 16px;
+    margin-left: 680px;
+    margin-top: 20px;
+    
+}
+
+.save-btnc:hover {
+    background: #218838;
+}
+
+/* ✅ Chronic Disease Card Styling */
+#chronic-disease-container{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 1100px;
+    margin-left: 120px;
+    margin-top: 20px;
+}
+.chronic-card {
+    border: 2px solid #002060;
+        border-radius: 8px;
+        background: #f9f9f9;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        padding: 10px;
+}
+
+/* ✅ Chronic Disease Header */
+.chronic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    background: #002060 !important;
+    color: white !important;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+/* ✅ Chronic Disease Details */
+.chronic-details p {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #000000;
+}
+
+/* ✅ Chronic Disease Delete Button */
+.chronic-delete-btn {
+    background-color: #750000;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.chronic-delete-btn:hover {
+    background-color: #cc0000;
+}
 
 
 .save-report-btn{
@@ -124,36 +189,75 @@ textarea{
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 70%;
-    margin-left: 200px;
+    margin-left: 270px;
 }
 
+    /* Container Styling */
+    #disease-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-width: 1100px;
+        margin-left: 200px;
+        margin-top: 20px;
+    }
 
-/* Table Styling */
-.table-container {
-    margin-top: 20px;
-    overflow-x: auto;
-}
+    /* Disease Card Styling */
+    .disease-card {
+        border: 2px solid #002060;
+        border-radius: 8px;
+        background: #f9f9f9;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        padding: 10px;
+    }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+    /* Header  */
+    .disease-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        background: #002060 !important;
+        color: white !important;
+        padding: 12px;
+        border-radius: 8px;
+    }
 
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
+    /* Number Badge */
+    .disease-number {
+        background: white !important;
+        color: #002060!important;
+        font-weight: bold;
+        padding: 3px 8px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 
-th {
-    background: #28a745;
-    color: white;
-}
+    /* Disease Body (Hidden Initially) */
+    .disease-body {
+        display: none;
+        padding: 12px;
+        background: white !important;
+    }
 
-tr:hover {
-    background: #f1f1f1;
-}
+    /* Styling for Details */
+    .disease-body p {
+        margin: 8px 0;
+        font-size: 14px;
+    }
 
+    /* Delete Button */
+    .delete-btn {
+        background: rgb(93, 40, 40) !important;
+        color: white !important ;
+        border: none;
+        padding: 6px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 10px;
+        display: block;
+    }
 /* Modal Styling */
 .modal {
     display: none; /* Hide modal initially */
@@ -307,3 +411,34 @@ body {
     display: block;
 }
 
+.form-container p{
+    margin-left: 200px;
+}
+
+#selet-diseases-para{
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-left: 80px;
+}
+
+ /* Apply the same styles to API-powered input */
+ #condition {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 360%;
+    margin-left: 81px;
+    margin-bottom: -20px;
+    font-size: 16px;
+}
+
+/* Styling for autocomplete dropdown */
+.autocomplete-lhc .ui-menu-item {
+    font-size: 16px;
+    padding: 10px;
+}
+
+.autocomplete-lhc .ui-widget-content {
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
