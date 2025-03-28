@@ -1,3 +1,30 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+import { getFirestore, collection, getDoc, getDocs, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-storage.js";  // Ensure version matches
+import QrScanner from "https://unpkg.com/qr-scanner@1.4.2/qr-scanner.min.js";
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCsDXa7OmJ2wcpaoV7RRJKBh6ithhABp7o",
+    authDomain: "aarogya-lekha.firebaseapp.com",
+    projectId: "aarogya-lekha",
+    storageBucket: "aarogya-lekha.appspot.com",
+    messagingSenderId: "253609387970",
+    appId: "1:253609387970:web:66adac86ff86d88853185b",
+    measurementId: "G-JH2F1H03S6"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+// Debugging Firebase initialization
+console.log("🔥 Firebase Initialized:");
+console.log("Firestore:", db);
+console.log("Storage:", storage);
+
+export { db };  // Export Firestore database
+
 
 
 // Existing JavaScript for dropdown functionality remains the same
@@ -64,13 +91,6 @@ function changeLanguage(language) {
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const scrollingCards = document.querySelector(".scrolling-cards");
-
-    // Duplicate cards for a seamless infinite loop
-    const clone = scrollingCards.cloneNode(true);
-    scrollingCards.parentNode.appendChild(clone);
-});
 
 function enableEditing() {
     let inputs = document.querySelectorAll(".profile-info input");
@@ -166,45 +186,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
-import {  getFirestore, collection, getDoc,getDocs, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
-
-// Firebase Configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyCsDXa7OmJ2wcpaoV7RRJKBh6ithhABp7o",
-    authDomain: "aarogya-lekha.firebaseapp.com",
-    projectId: "aarogya-lekha",
-    storageBucket: "aarogya-lekha.appspot.com",
-    messagingSenderId: "253609387970",
-    appId: "1:253609387970:web:66adac86ff86d88853185b",
-    measurementId: "G-JH2F1H03S6"
-  };
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app); // Firestore Database
-
-export { db };  // Export Firestore database
-
-
-
-
-function showPage(pageId) {
-    let pages = document.querySelectorAll(".page");
-    pages.forEach(page => page.classList.remove("active"));
-
-    let pageToShow = document.getElementById(pageId);
-    if (pageToShow) {
-        pageToShow.classList.add("active");
-    } else {
-        console.error(`Page with ID '${pageId}' not found.`);
-    }
-}
-
-// ✅ Attach to `window` so it's accessible in HTML
-window.showPage = showPage;
-
-
-
 // Function to fetch and display hospital name
 async function displayHospitalName() {
     const hospitalId = localStorage.getItem("hospitalId"); // Get logged-in hospital ID
@@ -263,6 +244,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // Generate Random Password
+        let randomPassword = generateRandomPassword(10);
+        console.log("Generated Password:", randomPassword);
+
         let newPatient = {
             patientId,
             patientName,
@@ -272,7 +257,8 @@ document.addEventListener("DOMContentLoaded", function () {
             contact,
             secondaryContact,
             bloodGroup,
-            gender
+            gender,
+            password: randomPassword // 🔒 Storing the random password securely
         };
 
         try {
@@ -285,8 +271,19 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error adding patient to Firestore: ", error);
             alert("Error: " + error.message);
         }
+        await sendSMS(contact, patientId, password);
     });
 });
+
+// Function to generate a random password (10 characters)
+function generateRandomPassword(length = 10) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return password;
+}
 
 // Function to Retrieve Hospital Data
 async function fetchHospitalProfile() {
@@ -346,7 +343,10 @@ async function searchPatient(event) {
         const patientRef = doc(db, "patients", patientId);
         const patientSnap = await getDoc(patientRef);
 
-       
+        if (!patientSnap.exists()) {  // ✅ Check if document exists
+            alert("Patient not found!");
+            return;
+        }
 
         let patientData = patientSnap.data();
         patientData.patientId = patientId; // Store ID along with data
@@ -361,6 +361,8 @@ async function searchPatient(event) {
         alert("Error fetching patient data: " + error.message);
     }
 }
+
+
 
 // Attach event listener
 document.getElementById("patient-id-form").addEventListener("submit", searchPatient);
@@ -390,3 +392,213 @@ async function generatePatientID() {
         alert("Error generating Patient ID: " + error.message);
     }
 }
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ DOM fully loaded!");
+
+    const uploadButton = document.getElementById("uploadButton");
+    if (uploadButton) {
+        uploadButton.addEventListener("click", uploadToCloudinary);
+    } else {
+        console.error("❌ Upload button not found in the DOM.");
+    }
+});
+
+// ✅ Upload function
+async function uploadToCloudinary() {
+    const fileInput = document.getElementById("profilePhoto");
+    const errorElement = document.getElementById("error");
+    const patientIDInput = document.getElementById("patient-id-display");
+
+    if (!fileInput || !errorElement || !patientIDInput) {
+        console.error("❌ Missing file input, error element, or patient ID input.");
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const patientID = patientIDInput.value.trim();
+
+    if (!file) {
+        errorElement.innerText = "❌ Please select a file!";
+        return;
+    }
+
+    if (!patientID) {
+        errorElement.innerText = "❌ Patient ID is required!";
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "AarogyaLekha"); // Your upload preset....
+
+    try {
+        console.log("🔄 Uploading file to Cloudinary...");
+
+        const response = await fetch("https://api.cloudinary.com/v1_1/dlapjxix7/image/upload", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!response.ok) throw new Error("Upload failed!");
+
+        const data = await response.json();
+        const imageUrl = data.secure_url;
+
+        console.log("✅ Image uploaded successfully:", imageUrl);
+
+        // Store Image URL in Firebase Firestore
+        console.log("🔄 Storing URL in Firestore...");
+        const patientRef = doc(db, "patients", patientID);
+        await setDoc(patientRef, { profileImage: imageUrl }, { merge: true });
+
+        console.log("✅ Image URL stored in Firestore!");
+        alert("✅ Upload successful!");
+    } catch (error) {
+        console.error("❌ Upload error:", error);
+        errorElement.innerText = "❌ Upload failed. Please try again!";
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".nav-links li").forEach(item => {
+        item.addEventListener("click", function () {
+            const pageId = this.getAttribute("data-page");
+            if (pageId) {
+                showPage(pageId);
+            }
+        });
+    });
+});
+
+function showPage(pageId) {
+    document.querySelectorAll(".page").forEach(page => {
+        page.style.display = "none"; // Hide all pages
+    });
+
+    const selectedPage = document.getElementById(pageId);
+    if (selectedPage) {
+        selectedPage.style.display = "block"; // Show selected page
+    } else {
+        console.error("❌ Page not found:", pageId);
+    }
+}
+
+
+export async function sendSMS(patientId) {
+    console.log("🔹 sendSMS() function started for Patient ID:", patientId);
+
+    try {
+        const response = await fetch("http://localhost:3000/send-sms", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ patientId }),
+        });
+
+        const data = await response.json();
+        console.log("📬 Response received:", data);
+
+        if (data.success) {
+            alert("SMS sent successfully!");
+        } else {
+            alert("Failed to send SMS: " + data.error);
+        }
+    } catch (error) {
+        console.error("🚨 Error sending SMS:", error);
+    }
+}
+
+// Elements
+const scanQRButton = document.getElementById("scanQR");
+const qrScannerPopup = document.getElementById("qrScannerPopup");
+const qrVideo = document.createElement("video"); // Create video element dynamically
+qrVideo.setAttribute("autoplay", "");
+qrScannerPopup.appendChild(qrVideo); // Append video to scanner popup
+
+const closeQRScanner = document.getElementById("closeQRScanner");
+const patientIdInput = document.getElementById("patient-id-input");
+const generateQRButton = document.getElementById("generateQR");
+const qrPopup = document.getElementById("qrPopup");
+const closeQRPopup = document.getElementById("closeQRPopup");
+const patientIdDisplay = document.getElementById("patient-id-display");
+
+let qrScanner = null;
+let videoStream = null; // Store camera stream
+
+// Scan QR Code
+// Scan QR Code
+scanQRButton.addEventListener("click", async () => {
+    qrScannerPopup.style.display = "flex"; // Show popup
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+
+        if (!stream) throw new Error("Camera access denied by user."); // Ensure stream exists
+
+        qrVideo.srcObject = stream;
+        videoStream = stream; // Store stream for stopping later
+
+        // Initialize QR Scanner
+        qrScanner = new QrScanner(qrVideo, (result) => {
+            console.log("✅ QR Code Scanned:", result);
+            
+            patientIdInput.value = result; // Auto-fill Patient ID
+            stopScanner(); // Stop scanner & close popup
+
+            // Trigger form submission manually after setting value
+            document.getElementById("patient-id-form").dispatchEvent(new Event("submit"));
+        });
+
+        qrScanner.start();
+    } catch (err) {
+        if (err.name === "NotAllowedError") {
+            alert("Camera access denied! Please allow it in browser settings.");
+        } else {
+            console.error("🚨 Camera Error:", err);
+        }
+    }
+});
+
+// Close QR Scanner
+closeQRScanner.addEventListener("click", stopScanner);
+
+// Stop Scanner Function
+function stopScanner() {
+    if (qrScanner) {
+        qrScanner.stop();
+        qrScanner.destroy(); // Free up memory
+        qrScanner = null;
+    }
+
+    if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+        videoStream = null;
+    }
+
+    qrScannerPopup.style.display = "none"; // Hide popup
+}
+
+// Generate QR Code
+generateQRButton.addEventListener("click", () => {
+    const patientId = patientIdDisplay.value;
+
+    if (!patientId) {
+        alert("No Patient ID Found!");
+        return;
+    }
+
+    qrPopup.style.display = "flex";
+    document.getElementById("qrcode").innerHTML = ""; // Clear old QR Code
+
+    new QRCode(document.getElementById("qrcode"), {
+        text: patientId,
+        width: 200,
+        height: 200
+    });
+});
+
+// Close QR Code Popup
+closeQRPopup.addEventListener("click", () => {
+    qrPopup.style.display = "none";
+});
+

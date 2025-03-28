@@ -17,7 +17,7 @@
 <body>
     <nav class="navbar">
         <div class="navbar-left">
-            <a href="examplelogin.html" id="logo">
+            <a href="Homepage.html" id="logo">
           <img src="res/blacknobackground-removebg-preview.png" alt="App Logo" class="logo">
             </a>
           <span class="app-name" data-translate="al">Aarogya Lekha</span>
@@ -35,6 +35,9 @@
     <!-- Tab Content Sections -->
     <div id="patient-details" class="tab-content active" data-tab="patient-details">
         <h2>Patient Details</h2>
+        <div class="image-container">
+            <img src="https://via.placeholder.com/150" alt="Patient Img" class="patient-photo" id="patientImage">
+        </div>
         <div id="patient-info">Loading...</div>
     </div>
 
@@ -130,34 +133,23 @@
                 </div>
         
                 <div class="form-group">
-                    <h3>Medical History & Symptoms</h3>
-                    <label for="chronic-current-symptoms">Current Symptoms (If any):</label>
+                    
+                    <label for="chronic-current-symptoms">Symptoms:</label>
                     <input type="text" id="chronic-current-symptoms" name="chronic-current-symptoms" placeholder="Describe any ongoing symptoms">
         
-                    <label for="chronic-past-symptoms">Past Symptoms (Leading to Diagnosis):</label>
-                    <textarea rows="3" id="chronic-past-symptoms" name="chronic-past-symptoms" placeholder="Mention symptoms experienced before diagnosis"></textarea>
                 </div>
         
                 <div class="form-group">
-                    <h3>Previous Treatments Taken</h3>
-                    <label for="previous-medications">Past Medications:</label>
-                    <input type="text" id="previous-medications" name="previous-medications" placeholder="List previous medications">
-        
-                    <label for="previous-surgeries">Surgeries (If any):</label>
-                    <input type="text" id="previous-surgeries" name="previous-surgeries" placeholder="Mention past surgeries related to this disease">
-        
-                    <label for="previous-therapies">Therapies Undertaken:</label>
-                    <input type="text" id="previous-therapies" name="previous-therapies" placeholder="List any therapies (e.g., physiotherapy, chemotherapy)">
-                </div>
-        
-                <div class="form-group">
-                    <h3>Current Treatment Plan</h3>
-                    <label for="chronic-current-medications">Ongoing Medications:</label>
+                    
+                    <label for="chronic-current-medications">Medications:</label>
                     <textarea rows="3" id="chronic-current-medications" name="chronic-current-medications" placeholder="Prescribed drugs, dosage, frequency"></textarea>
         
-                    <label for="chronic-current-therapy">Current Therapies (If any):</label>
+                    <label for="chronic-current-therapy">Therapies:</label>
                     <input type="text" id="chronic-current-therapy" name="chronic-current-therapy" placeholder="E.g., physiotherapy, speech therapy">
         
+                    <label for="chronic-surgeries">Surgeries:</label>
+                    <textarea rows="3" id="chronic-surgeries" name="chronic-surgeries" placeholder="Prescribed drugs, dosage, frequency"></textarea>
+
                 </div>
         
                 <div class="form-group">
@@ -170,7 +162,7 @@
                     <textarea rows="3" id="chronic-remarks" name="chronic-remarks"></textarea>
                 </div>
         
-                <button type="submit" class="save-btnc">Save</button>
+                <button type="submit" id="save-btnc" class="save-btnc">Save</button>
             </form>
             <h3>Patient Disease History</h3>
             <div id="chronic-disease-container"></div>
@@ -182,35 +174,46 @@
     </div>
 </div>
 
-    <div id="lab-reports" class="tab-content" data-tab="lab-reports">
-        <h2>Lab Reports</h2>
-        <form id="lab-report-form">
-            <div class="form-group">
-                <label for="report-type">Report Type:</label>
-                <select id="report-type" name="report-type" required>
-                    <option value="">Select Report Type</option>
-                    <option value="CT Scan">CT Scan</option>
-                    <option value="X-ray">X-ray</option>
-                    <option value="MRI">MRI</option>
-                    <option value="Blood Test">Blood Test</option>
-                    <option value="Ultrasound">Ultrasound</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
+<div id="lab-reports" class="tab-content" data-tab="lab-reports">
+    <h2>Lab Reports</h2>
     
-            <div class="form-group">
-                <label for="report-date">Report Date:</label>
-                <input type="date" id="report-date" name="report-date" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="report-file">Upload Report:</label>
-                <input type="file" id="report-file" name="report-file" accept=".pdf, .jpg, .png" required>
-            </div>
-    
-            <button type="submit" id="save-report-btn"   class="save-report-btn">Save Report</button>
-        </form>
+    <!-- Lab Reports Display Section -->
+    <div id="uploaded-reports">
+        <h3>Uploaded Reports</h3>
+        <ul id="report-list"></ul>
     </div>
+
+    <form id="lab-report-form">
+
+        <div class="form-group">
+            <label for="report-type">Report Type:</label>
+            <select id="report-type" name="report-type" required>
+                <option value="">Select Report Type</option>
+                <option value="CT Scan">CT Scan</option>
+                <option value="X-ray">X-ray</option>
+                <option value="MRI">MRI</option>
+                <option value="Blood Test">Blood Test</option>
+                <option value="Ultrasound">Ultrasound</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="report-date">Report Date:</label>
+            <input type="date" id="report-date" name="report-date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="report-file">Upload Report:</label>
+            <input type="file" id="report-file" name="report-file" accept=".pdf, .jpg, .png" required>
+        </div>
+
+        <p id="report-error" style="color: red;"></p> <!-- Error Message Display -->
+
+        <button type="submit" id="save-report-btn" class="save-report-btn">Save Report</button>
+    </form>
+</div>
+
 
     <div id="print-export" class="tab-content" data-tab="print-export">
 

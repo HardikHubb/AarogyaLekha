@@ -10,11 +10,21 @@ h1,h2, h3 {
     margin-left: 120px;
    
 }
+.patient-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 3px solid #ddd;
+   margin-left: 1100px;
+   margin-top: -10px;
+}
 .patient-grid {
+    width: 950px;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns */
     gap: 10px;
-    
+    margin-top: -200px;
     padding: 15px;
     border-radius: 8px;
    
@@ -29,6 +39,14 @@ h1,h2, h3 {
    
 }
 
+.patient-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    margin-bottom: 10px;
+}
 
 #patient-info, .form-container, .table-container {
     background: rgb(255, 255, 255);

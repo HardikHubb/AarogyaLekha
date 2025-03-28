@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title >Homepage</title>
     <link rel="stylesheet" href="homepage-design.css">
+    <script src="https://unpkg.com/qr-scanner/qr-scanner.min.js"></script>
 </head>
 <body>
     <div class="component">
@@ -35,16 +36,16 @@
        <div class="sidebar" id="sidebar">
         <ul class="nav-links">
             
-            <li onclick="showPage('patient-id')">
+            <li data-page="patient-id">
                 <img src="res/identification-card.png" alt="Patient ID Icon"> <span>Patient ID</span>
             </li>
-            <li onclick="showPage('registration')">
+            <li data-page="registration">
                 <img src="res/registration.png" alt="Registration Icon"> <span>Patient Registration</span>
             </li>
-            <li onclick="showPage('profile')">
+            <li data-page="profile">
                 <img src="res/user.png" alt="Profile Icon"> <span>Profile</span>
             </li>
-            <li onclick="showPage('faq')">
+            <li data-page="faq">
                 <img src="res/faq.png" alt="FAQ Icon"> <span>FAQ</span>
             </li>
             <li onclick="redirectToPage('contact-us.html')">
@@ -89,10 +90,21 @@
                 <form id="patient-id-form" class="patient-id-form" onsubmit="return searchPatient(event)">
                     <label for="patient-id-input" >Enter Patient ID</label>
                     <input type="text" id="patient-id-input" name="patient-id-input" placeholder="Enter Patient ID"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
+                    <button type="button" id="scanQR">📷 Scan QR Code</button>
                     <button type="submit"  >Search</button>
+
                 </form>
             </div> 
         </div>
+       <!-- QR Scanner Popup (Initially Hidden) -->
+<div id="qrScannerPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+        <h2>Scan QR Code</h2>
+        <video id="qrVideo" autoplay></video>
+        <button id="closeQRScanner">Close</button>
+    </div>
+</div>
+   
         <div id="registration" class="page"> 
             <div id="registration-container">
                 
@@ -103,6 +115,16 @@
                     <!-- Display Auto-Generated Patient ID -->
         <label for="patient-id-display">Patient ID (Auto-Generated):</label>
         <input type="text" id="patient-id-display" readonly> <!-- Read-only input -->
+        <label for="qrcode">Generate QR Code:</label>
+                <button type="button" id="generateQR">Generate QR Code</button>
+                
+                <div id="qrPopup" class="qr-popup" style="display: none;">
+                    <div class="qr-popup-content">
+                        <span  class="close" id="closeQRPopup">&times;</span>
+                        <h3>Patient QR Code</h3>
+                        <div id="qrcode"></div>
+                    </div>
+                </div>
                     <label for="patient-name-input">Enter Patient Name:</label>
                     <input type="text" id="patient-name-input" name="patient-name-input" placeholder="Enter Patient Name">
                     <label for="bloodGroup">Gender:</label>
@@ -127,7 +149,7 @@
                     <textarea id="aaddress" name="aaddress" rows="4"  placeholder="Enter your address"></textarea>
                     <label for="patient-number-input">Contact Number</label>
                     <input type="text" id="patient-number-input" name="patient-number-input" placeholder="Enter Contact Number"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
-                    <label for="patient-secondaryumber-input">Secondary Contact Number</label>
+                    <label for="patient-secondarynumber-input">Secondary Contact Number</label>
                     <input type="text" id="patient-secondarynumber-input" name="patient-secondarynumber-input" placeholder="Enter Secondary Contact Number"pattern="\d{10}" title="10 digits only" maxlength="10" required onkeypress="return isNumberKey(event)" >
                     <label for="bloodGroup">Blood Group:</label>
                     <div id="bloodgGroupcontainer">
@@ -146,15 +168,17 @@
                     <label for="aadhar-num-input" data-translate="hid">Enter your Aadhar Number:</label>
                 <input type="text" id="aadhar-num-input" name="aadhar-num-input" placeholder="Enter your Aadhar Number" pattern="\d{12}" title="12 digits only" maxlength="12" required onkeypress="return isNumberKey(event)" >
                         
-
-<label for="imageInput">Upload your aadhar card photo</label>
-                        <input type="file" id="imageInput" accept="image/*">
+                 <!-- 🔒 Hidden Field for Auto-Generated Password -->
+        <input type="hidden" id="patient-password" name="patient-password">
+                <label for="profilePhoto">Upload profile photo:</label>
+                <input type="file" id="profilePhoto" accept="image/*">
+                
+                <p id="error" style="color: red;"></p>
+                
+        
                         <br><br>
-                        <img id="previewImage" style="max-width: 300px; display: none;">
-
-                        
-
-                        <button          type="submit" >Register</button>
+                        <button id="uploadButton" onclick="uploadToCloudinary()"   type="submit">Register</button>
+                        <p id="uploadStatus"></p>
                         
 
                 </form>
@@ -201,8 +225,11 @@
 
        
       </nav>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+      <script type="module" src="homepage-script.js">
 
-      <script type="module" src="homepage-script.js"></script>
+      </script>
 
 
     </body>
