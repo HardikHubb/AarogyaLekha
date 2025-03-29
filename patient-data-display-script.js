@@ -666,8 +666,183 @@ async function uploadLabReport() {
         errorElement.innerText = "❌ Upload failed. Please try again!";
     }
 }
+async function loadLabReports() {
+    const selectedPatient = localStorage.getItem("selectedPatient");
+    if (!selectedPatient) {
+        document.getElementById("report-list").innerHTML = "<p>No patient selected.</p>";
+        return;
+    }
 
-export { uploadLabReport };
+    let patientData;
+    try {
+        patientData = JSON.parse(selectedPatient);
+    } catch (e) {
+        console.error("Error parsing patient data:", e);
+        return;
+    }
+
+    const patientId = patientData.patientId;
+    if (!patientId) {
+        console.error("Invalid Patient ID");
+        return;
+    }
+
+    const patientRef = doc(db, "patients", patientId);
+    const docSnap = await getDoc(patientRef);
+    
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        const reports = data.reports || [];
+        
+        const reportList = document.getElementById("report-list");
+        reportList.innerHTML = "";
+        
+        if (reports.length === 0) {
+            reportList.innerHTML = "<p>No reports found.</p>";
+            return;
+        }
+        
+        reports.forEach(report => {
+            const reportItem = document.createElement("div");
+            reportItem.classList.add("report-item");
+            reportItem.innerHTML = `
+                <p><strong>Type:</strong> ${report.type}</p>
+                <p><strong>Date:</strong> ${report.date}</p>
+                <p><a href="${report.url}" target="_blank">View Report</a></p>
+            `;
+            reportList.appendChild(reportItem);
+        });
+    } else {
+        document.getElementById("report-list").innerHTML = "<p>No patient data found.</p>";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadLabReports);
+
+async function printReport() {
+    console.log("🔄 printReport() function called!");
+
+    let selectedPatient = localStorage.getItem("selectedPatient");
+    if (!selectedPatient) {
+        console.error("❌ No patient data found!");
+        alert("No patient data available for printing.");
+        return;
+    }
+
+    selectedPatient = JSON.parse(selectedPatient);
+    console.log("📜 Found Patient Data:", selectedPatient);
+
+    // Insert patient details into print section
+    document.getElementById("printName").innerText = selectedPatient.patientName || "N/A";
+    document.getElementById("printGender").innerText = selectedPatient.gender || "N/A";
+    document.getElementById("printDOB").innerText = selectedPatient.dob || "N/A";
+    document.getElementById("printAge").innerText = selectedPatient.patientAge || "N/A";
+    document.getElementById("printAddress").innerText = selectedPatient.address || "N/A";
+    document.getElementById("printContact").innerText = selectedPatient.contact || "N/A";
+    document.getElementById("printSecondaryContact").innerText = selectedPatient.secondaryContact || "N/A";
+    document.getElementById("printBloodGroup").innerText = selectedPatient.bloodGroup || "N/A";;
+
+    console.log("✅ Patient data inserted into print section!");
+
+    const patientId = selectedPatient.patientId;
+
+    // ✅ Fetch and insert diseases
+    const diseaseRef = collection(db, "patients", patientId, "diseases");
+    const diseasePrintContainer = document.getElementById("printDiseases");
+
+    if (!diseasePrintContainer) {
+        console.error("❌ Element #printDiseases not found!");
+        alert("Print section is missing. Please check your HTML.");
+        return;
+    }
+
+    diseasePrintContainer.innerHTML = "<h3>🩺 Medical History</h3>"; // Title for diseases section
+
+    try {
+        const querySnapshot = await getDocs(diseaseRef);
+        console.log("📜 Total diseases found:", querySnapshot.size);
+
+        if (querySnapshot.empty) {
+            diseasePrintContainer.innerHTML += "<p>No disease records available</p>";
+        } else {
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                console.log("📌 Disease Data:", data);
+
+                diseasePrintContainer.innerHTML += `
+                    <div class="print-disease">
+                        <h4>🦠 ${data.diseaseName || "Unknown Disease"}</h4>
+                        <p><strong>📝 Symptoms:</strong> ${data.symptoms || "N/A"}</p>
+                        <p><strong>👨‍⚕️ Doctor:</strong> ${data.doctor || "N/A"}</p>
+                        <p><strong>📅 Date:</strong> ${data.admitDate || "N/A"}</p>
+                        <p><strong>💊 Medication:</strong> ${data.medication || "N/A"}</p>
+                        <p><strong>🗒️ Remarks:</strong> ${data.remarks || "N/A"}</p>
+                    </div>
+                `;
+            });
+        }
+
+        console.log("✅ Diseases added to print section!");
+    } catch (error) {
+        console.error("❌ Error fetching diseases:", error);
+    }
+
+    // 🔴 Fetch Chronic Diseases
+    const chronicRef = collection(db, "patients", patientId, "chronicdiseases");
+    const chronicPrintContainer = document.getElementById("printChronicDiseases");
+
+    if (!chronicPrintContainer) {
+        console.error("❌ Element #printChronicDiseases not found!");
+        return;
+    }
+
+    chronicPrintContainer.innerHTML = "<h3>⚠ Chronic Conditions</h3>"; // Title for chronic diseases section
+
+    try {
+        const chronicSnapshot = await getDocs(chronicRef);
+        console.log("📜 Total chronic diseases found:", chronicSnapshot.size);
+
+        if (chronicSnapshot.empty) {
+            chronicPrintContainer.innerHTML += "<p>No chronic diseases recorded</p>";
+        } else {
+            chronicSnapshot.forEach((doc) => {
+                const data = doc.data();
+                console.log("⚠ Chronic Disease Data:", data);
+
+                chronicPrintContainer.innerHTML += `
+                    <div class="print-chronic" style="border: 1px solid #d9534f; padding: 8px; margin-bottom: 5px; background-color: #fff5f5;">
+                        <h4 style="color: #d9534f;">⚠ ${data.chronicDiseaseName || "Unknown Condition"}</h4>
+                        <p><strong>📆 Diagnosed On:</strong> ${data.chronicDiseaseDate || "N/A"}</p>
+                        <p><strong>💊 Medications:</strong> ${data.currentMedications || "N/A"}</p>
+                        <p><strong>🗒️ Remarks:</strong> ${data.chronicRemarks|| "N/A"}</p>
+                    </div>
+                `;
+            });
+        }
+
+        console.log("✅ Chronic Diseases added to print section!");
+    } catch (error) {
+        console.error("❌ Error fetching chronic diseases:", error);
+    }
+
+    console.log("🖨️ Preparing print content...");
+    let printContent = document.getElementById("printSection").innerHTML;
+    let originalContent = document.body.innerHTML;
+
+    document.body.innerHTML = printContent;
+    window.print();
+    document.body.innerHTML = originalContent;
+
+    console.log("🔄 Restoring original page...");
+    location.reload();
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("printButton").addEventListener("click", printReport);
+});
+
 
 new Def.Autocompleter.Search('condition',
     'https://clinicaltables.nlm.nih.gov/api/conditions/v3/search');

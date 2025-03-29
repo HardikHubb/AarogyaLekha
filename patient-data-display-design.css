@@ -125,6 +125,15 @@ input {
     background: #218838;
 }
 
+#chronic-disease-select{
+    width: 1020px;
+margin-left: 160px;
+   margin-bottom: -500px;
+   
+}
+#report-type{
+    margin-left: 270px;
+}
 /* ✅ Chronic Disease Card Styling */
 #chronic-disease-container{
     display: flex;
@@ -459,4 +468,57 @@ body {
 .autocomplete-lhc .ui-widget-content {
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#printDiseases {
+    margin-top: 20px;
+}
+
+.print-disease {
+    border: 2px solid #007bff;
+    background: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.print-disease h4 {
+    background: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+}
+
+.print-disease p {
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+
+#applogoprint{
+    width: 100px;
+    height: 100px;
+    margin-top: -500px;
+}
+#appnameprint{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.report-list {
+    margin-top: 20px;
+    border-top: 2px solid #ddd;
+    padding-top: 10px;
+}
+.report-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+.report-item a {
+    color: blue;
+    text-decoration: none;
 }

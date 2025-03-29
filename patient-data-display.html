@@ -177,11 +177,6 @@
 <div id="lab-reports" class="tab-content" data-tab="lab-reports">
     <h2>Lab Reports</h2>
     
-    <!-- Lab Reports Display Section -->
-    <div id="uploaded-reports">
-        <h3>Uploaded Reports</h3>
-        <ul id="report-list"></ul>
-    </div>
 
     <form id="lab-report-form">
 
@@ -212,75 +207,46 @@
 
         <button type="submit" id="save-report-btn" class="save-report-btn">Save Report</button>
     </form>
+    <h2>Uploaded Lab Reports</h2>
+    <div id="report-list" class="report-list">
+        <p>Loading reports...</p>
+    </div>
+   
 </div>
 
 
     <div id="print-export" class="tab-content" data-tab="print-export">
 
         <!-- 🔹 Hidden Printable Section -->
-<div id="print-section" style="display: none;">
+<div id="printSection" style="display: none;">
     <div id="printable-content">
-        <!-- Patient Profile -->
-        <div id="patient-profile">
-            <h2>Patient Report</h2>
-            <img id="patient-photo" src="profile.jpg" alt="Patient Photo" width="100">
-            <p><strong>Name:</strong> <span id="print-name">John Doe</span></p>
-            <p><strong>Patient ID:</strong> <span id="print-id">12345</span></p>
-            <p><strong>Age:</strong> <span id="print-age">35</span></p>
-            <p><strong>Gender:</strong> <span id="print-gender">Male</span></p>
-        </div>
-
-        <hr> <!-- Break Line -->
-
-        <!-- Diseases Table -->
-        <h2>Medical History</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>S.No</th>
-                    <th>Disease Name</th>
-                    <th>Symptoms</th>
-                    <th>Doctor</th>
-                    <th>Date</th>
-                    <th>Medication</th>
-                    <th>Remarks</th>
-                </tr>
-            </thead>
-            <tbody id="print-disease-list">
-                <!-- Diseases will be inserted dynamically -->
-            </tbody>
-        </table>
-
-        <hr> <!-- Break Line -->
-
-        <!-- Chronic Diseases Table -->
-        <h2>Chronic Diseases</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>S.No</th>
-                    <th>Disease Name</th>
-                    <th>Symptoms</th>
-                    <th>Doctor</th>
-                    <th>Date</th>
-                    <th>Medication</th>
-                    <th>Remarks</th>
-                </tr>
-            </thead>
-            <tbody id="print-chronic-list">
-                <!-- Chronic diseases will be inserted dynamically -->
-            </tbody>
-        </table>
-    </div>
+        <img src="res/awdawd.png" id="applogoprint" alt="app logo">
+        <h1 id="appnameprint">AarogyaLekha</h1>
+        <h2>Patient Report</h2>
+    <p><strong>Name:</strong> <span id="printName"></span></p>
+    <p><strong>Gender:</strong> <span id="printGender"></span></p>
+    <p><strong>Date of Birth:</strong> <span id="printDOB"></span></p>
+    <p><strong>Age:</strong> <span id="printAge"></span></p>
+    <p><strong>Address:</strong> <span id="printAddress"></span></p>
+    <p><strong>Contact Number:</strong> <span id="printContact"></span></p>
+    <p><strong>Secondary Contact:</strong> <span id="printSecondaryContact"></span></p>
+    <p><strong>Blood Group:</strong> <span id="printBloodGroup"></span></p>
+   
+    
+     <!-- 🔽 Medical History Section -->
+     <div id="printDiseases"></div>
+     <div id="printDiseases"></div>
+<div id="printChronicDiseases"></div>
+</div>
 </div>
 
 <!-- 🔹 Buttons -->
-<button onclick="printReport()">🖨️ Print Report</button>
+<button id="printButton" >🖨️ Print Report</button>
 <button onclick="exportToPDF()">📄 Export as PDF</button>
 
 
 
-    </div>
+    
 
     <!-- ✅ Include jsPDF & html2canvas -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
