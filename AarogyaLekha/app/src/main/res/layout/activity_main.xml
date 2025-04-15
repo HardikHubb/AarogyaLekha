@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_image"
+    android:orientation="vertical">
+
+    <!-- Translucent Top Navigation Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="93dp"
+        android:background="@drawable/blur_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="12dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_aarogyalekha_logo" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AarogyaLekha"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Text Description (No Background) -->
+
+    <!-- Main Content with ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="25dp"
+                android:gravity="center"
+                android:text="Your Health,Your History\nYour Control"
+                android:textColor="@android:color/white"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnUserLogin"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/blue_primary"
+                android:text="User Login"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/btnAboutUs"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/blue_primary"
+                android:text="About Us"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/btnContactUs"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/blue_primary"
+                android:text="Contact Us"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/btnFAQs"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/blue_primary"
+                android:text="FAQs"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:cornerRadius="8dp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

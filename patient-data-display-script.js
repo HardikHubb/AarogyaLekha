@@ -149,7 +149,7 @@ async function saveDisease() {
     const remarks = document.getElementById("remarks").value.trim();
 
     if (!diseaseName || !symptoms || !doctor || !admitDate) {
-        alert("hello");
+        alert("Please select required fields");
         isSaving = false;
         saveButton.disabled = false;
         return;
@@ -307,7 +307,7 @@ window.deleteDisease = async function (diseaseId) {
         fetchDiseases(); // Refresh list
     } catch (error) {
         console.error("❌ Error deleting disease:", error);
-        alert("⚠ Failed to delete disease! See console for details.");
+        alert("⚠ Failed to delete disease! ");
     }
 };
 
@@ -659,7 +659,7 @@ async function uploadLabReport() {
         });
 
         console.log("✅ Report URL stored in Firestore!");
-        alert("✅ Report upload successful!");
+        
         document.getElementById("lab-report-form").reset();
     } catch (error) {
         console.error("❌ Upload error:", error);
@@ -752,7 +752,7 @@ async function printReport() {
 
     if (!diseasePrintContainer) {
         console.error("❌ Element #printDiseases not found!");
-        alert("Print section is missing. Please check your HTML.");
+       
         return;
     }
 

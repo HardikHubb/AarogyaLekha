@@ -452,7 +452,7 @@ async function uploadToCloudinary() {
         await setDoc(patientRef, { profileImage: imageUrl }, { merge: true });
 
         console.log("✅ Image URL stored in Firestore!");
-        alert("✅ Upload successful!");
+        
     } catch (error) {
         console.error("❌ Upload error:", error);
         errorElement.innerText = "❌ Upload failed. Please try again!";
@@ -485,28 +485,7 @@ function showPage(pageId) {
 }
 
 
-export async function sendSMS(patientId) {
-    console.log("🔹 sendSMS() function started for Patient ID:", patientId);
 
-    try {
-        const response = await fetch("http://localhost:3000/send-sms", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ patientId }),
-        });
-
-        const data = await response.json();
-        console.log("📬 Response received:", data);
-
-        if (data.success) {
-            alert("SMS sent successfully!");
-        } else {
-            alert("Failed to send SMS: " + data.error);
-        }
-    } catch (error) {
-        console.error("🚨 Error sending SMS:", error);
-    }
-}
 
 // Elements
 const scanQRButton = document.getElementById("scanQR");

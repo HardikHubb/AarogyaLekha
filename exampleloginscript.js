@@ -269,7 +269,7 @@ const translations = {
   }
 
   if (isValid) {
-      alert('Form submitted successfully!');
+      
       this.submit(); // Submit the form if all validations pass
   }
 });
@@ -420,7 +420,7 @@ document.getElementById("loginform").addEventListener("submit", async function(e
             return;
         }
 
-        alert("Login Successful!");
+        
         localStorage.setItem("hospitalId", hospitalId);
         window.location.href = "Homepage.html";
 
